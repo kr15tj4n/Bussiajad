@@ -169,11 +169,6 @@
 
   </main>
 
-  <!-- Lehe allserva märge -->
-  <footer class="w-full text-center py-4 text-slate-600 text-xs font-mono">
-    <span>Kliendipoolne staatiline rakendus &bull; transport.tallinn.ee SIRI API</span>
-  </footer>
-
   <!-- Staatiline brauseri JavaScript (puudub igasugune backend-sõltuvus) -->
   <script>
     const STOP_ID = '1579'; // Oblika tee (kood: 19001-1 / SIRI id: 1579)
@@ -335,7 +330,7 @@
         if (isFirst) {
           // 1. kaart: Peamine / Järgmine buss
           html += `
-            <div class="glass-subcard rounded-2xl p-5 border-emerald-500/30 bg-gradient-to-br from-slate-900/90 to-slate-850/80 shadow-lg relative overflow-hidden transition-all transform hover:scale-[1.01]">
+            <div class="glass-subcard rounded-2xl p-5 border-emerald-500/30 bg-gradient-to-br from-slate-900/90 to-slate-850/80 shadow-lg relative overflow-hidden">
               <div class="flex items-start justify-between">
                 <div>
                   <div class="flex items-center gap-2 mb-1">
