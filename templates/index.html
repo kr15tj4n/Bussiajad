@@ -165,7 +165,7 @@
 
         <div class="flex items-center gap-3">
           <span id="countdown-badge" class="font-mono text-[11px] px-2 py-0.5 rounded bg-slate-800 text-slate-400">
-            uuendus 15s
+            15s
           </span>
           <a href="{{ official_url }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-slate-400 hover:text-emerald-400 transition underline underline-offset-4 decoration-slate-700 hover:decoration-emerald-400">
             <span>Sõiduplaan</span>
@@ -328,7 +328,7 @@
         }
         const badge = document.getElementById('countdown-badge');
         if (badge) {
-          badge.textContent = `uuendus ${secondsUntilRefresh}s`;
+          badge.textContent = `${secondsUntilRefresh}s`;
         }
       }, 1000);
     }
