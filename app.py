@@ -31,7 +31,7 @@ def format_seconds_to_time(seconds_from_midnight: int) -> str:
 def get_remaining_text(remaining_seconds: int) -> str:
     """Genereerib kasutajasõbraliku teksti järelejäänud aja kohta."""
     if remaining_seconds < 60:
-        return "Saabub nüüd"
+        return "Nüüd"
     minutes = round(remaining_seconds / 60)
     return f"{minutes} min"
 

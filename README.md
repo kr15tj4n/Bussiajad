@@ -1,72 +1,21 @@
-# Bussiajad 🚌
+# Bussiajad
 
-Tallinna bussi nr **8** reaalaja väljumiste kiirvaade peatusest **Oblika tee** (suund Väike-Õismäe).
+Kiire ja minimalistlik veebirakendus, mis kuvab Tallinna bussi nr **8** järgmised reaalajas väljumisajad peatusest **Oblika tee** (suunaga Väike-Õismäe poole).
 
-Rakendus kasutab `transport.tallinn.ee` ametlikku SIRI reaalaja andmevoogu ning uuendab väljumisaegu ja saabumisloendurit automaatselt iga 15 sekundi järel.
-
----
-
-## Omadused
-- **Reaalajas väljumised:** Järgmise kahe bussi saabumisajad (kellaaeg `HH:MM` ja loendur `X min`).
-- **Automaatne uuendus:** Taustapäringud iga 15 sekundi järel ilma lehte värskendamata.
-- **Graafikuhälvete kuvamine:** Näitab hilinemist või enneaegsust võrreldes ametliku sõiduplaaniga.
-- **Modernne Dark-mode disain:** Kohandatud Tailwind CSS klaasjas (glassmorphism) disain, mis sobib nii nutitelefoni kui ka seinaekraanile.
-- **Vigade ja öise aja käsitlemine:** Puhas teade, kui liin parajasti ei sõida või ühendus puudub.
+Rakendus võimaldab ühe pilguga näha bussi saabumisaega ilma kohmakat sõiduplaani lehte avamata. Sobib suurepäraselt igapäevaseks kasutamiseks telefonis, arvutis või püsivalt avatud infovaatena ekraanil.
 
 ---
 
-## Käivitamine
+## Peamised võimalused
 
-### 1. Nõuded
-- Python 3.10+
-- Flask ja Requests (virtualenv on juba seadistatud kaustas `.venv`)
-
-### 2. Rakenduse käivitamine
-```bash
-# Virtuaalkeskkonna abil käivitamine:
-.venv/bin/python3 app.py
-```
-või tavalise pythoniga:
-```bash
-python3 app.py
-```
-
-### 3. Ava veebibrauseris
-Ava brauser aadressil:
-👉 **[http://localhost:5000](http://localhost:5000)**
+- **Reaalajas väljumised:** Kuvab järgmise kahe bussi saabumiskellaajad ning mitu minutit on bussini jäänud.
+- **Automaatne uuendus:** Andmed ja sekundiloendur uuenevad automaatselt taustal iga 15 sekundi järel.
+- **Graafikupõhine info:** Näitab bussi tegelikku saabumisaega ja hälvet võrreldes ametliku graafikuga.
+- **Silmasõbralik tume disain:** Kaasaegne ja puhas välimus, mis on optimeeritud nii mobiilile kui ka suurematele ekraanidele.
+- **Otsetee sõiduplaanile:** Kiirlink ametlikule Tallinna transpordi sõiduplaanile.
 
 ---
 
-## GitHub Pages / Staatiline versioon (`bussiajad.html`)
+## Andmeallikas
 
-Rakendus töötab ka **täiesti ilma Pythoni ja backendita**, kuna `transport.tallinn.ee` toetab otse CORS päringuid brauserist (`Access-Control-Allow-Origin: *`).
-
-- Fail [bussiajad.html](file:///home/kristjan/Scripts/Bussiajad/bussiajad.html) sisaldab kõike ühes failis (HTML, Tailwind CSS, JavaScript).
-- **GitHub Pages seadistus:**
-  - Nimeta fail `index.html`-iks repositooriumi juurkaustas või kopeeri `bussiajad.html`.
-  - Luba GitHub repos Settings -> Pages all GitHub Pages (haru `main`).
-  - Leht töötab automaatselt veebis ilma ühegi serverita!
-
----
-
-## API Lõpp-punktid (Flaski versioonis)- `GET /`: Veebiliidese avaleht
-- `GET /api/departures`: Tagastab JSON formaadis reaalaja väljumiste andmed:
-  ```json
-  {
-    "success": true,
-    "updated_at": "14:02:15",
-    "departures": [
-      {
-        "time": "14:08",
-        "scheduled_time": "14:08",
-        "destination": "Väike-Õismäe",
-        "remaining_seconds": 350,
-        "remaining_minutes": 6,
-        "remaining_text": "6 min pärast",
-        "is_realtime": true,
-        "delay_minutes": 0,
-        "delay_text": "Graafikus"
-      }
-    ]
-  }
-  ```
+Rakendus kuvab reaalaja andmeid otse Tallinna Transpordiameti ametlikust andmevoost (`transport.tallinn.ee`).

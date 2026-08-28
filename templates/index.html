@@ -10,7 +10,7 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23020617'/%3E%3Crect x='4' y='4' width='56' height='56' rx='14' fill='%234b8501' stroke='%2310b981' stroke-width='1.5' stroke-opacity='0.4'/%3E%3Crect x='12' y='12' width='40' height='24' rx='6' fill='%230b1120' fill-opacity='0.85'/%3E%3Ctext x='32' y='30' fill='%23ffffff' font-family='sans-serif' font-weight='900' font-size='20' text-anchor='middle'%3E8%3C/text%3E%3Ccircle cx='16' cy='46' r='3.5' fill='%23fef08a'/%3E%3Ccircle cx='48' cy='46' r='3.5' fill='%23fef08a'/%3E%3Crect x='24' y='44' width='16' height='4.5' rx='2' fill='%230b1120' fill-opacity='0.7'/%3E%3C/svg%3E">
   <link rel="alternate icon" href="favicon.svg" type="image/svg+xml">
 
-  <!-- Google Fonts: Inter -->
+  <!-- Google Fonts: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -38,10 +38,6 @@
               lightgreen: '#62ab02',
               darkgreen: '#376201',
             }
-          },
-          animation: {
-            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            'spin-slow': 'spin 1.5s linear infinite',
           }
         }
       }
@@ -49,13 +45,13 @@
   </script>
 
   <style>
-    /* Kohandatud taust ja klaas-efekt */
+    /* Kohandatud taust ja klaas-efekt (Glassmorphism) */
     body {
       background-color: #020617;
       background-image: 
-        radial-gradient(at 0% 0%, rgba(75, 133, 1, 0.15) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.12) 0px, transparent 50%),
-        radial-gradient(at 50% 50%, rgba(30, 41, 59, 0.25) 0px, transparent 70%);
+        radial-gradient(at 0% 0%, rgba(75, 133, 1, 0.18) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.14) 0px, transparent 50%),
+        radial-gradient(at 50% 50%, rgba(30, 41, 59, 0.3) 0px, transparent 70%);
       background-attachment: fixed;
     }
 
@@ -74,20 +70,19 @@
       border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    /* Sujuv üleminek andmete uuendamisel */
     .fade-update {
-      animation: flash-subtle 0.5s ease-out;
+      animation: flash-subtle 0.4s ease-out;
     }
 
     @keyframes flash-subtle {
-      0% { opacity: 0.65; transform: scale(0.995); }
+      0% { opacity: 0.7; transform: scale(0.995); }
       100% { opacity: 1; transform: scale(1); }
     }
   </style>
 </head>
 <body class="min-h-screen text-slate-100 flex flex-col justify-between antialiased selection:bg-emerald-500 selection:text-white p-4 sm:p-6 md:p-8">
 
-  <!-- Peamine konteiner -->
+  <!-- Peamine tsentreeritud konteiner -->
   <main class="w-full max-w-lg mx-auto flex-1 flex flex-col justify-center">
 
     <!-- Peakaart -->
@@ -96,17 +91,17 @@
       <!-- Dekoratiivne kuma ülaservas -->
       <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-tallinn-green via-emerald-400 to-teal-500"></div>
 
-      <!-- Päis: Liini info & staatus -->
+      <!-- Päis: Liini info & reaalaja staatus -->
       <header class="flex items-center justify-between pb-6 border-b border-slate-800/80">
         <div class="flex items-center gap-3.5">
-          <!-- Bussi numbri märgis -->
+          <!-- Bussi number -->
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-tallinn-lightgreen to-tallinn-green flex items-center justify-center shadow-lg shadow-tallinn-green/30 border border-white/20">
-            <span class="font-extrabold text-3xl text-white tracking-tight drop-shadow">8</span>
+            <span class="font-extrabold text-3xl text-white tracking-tight drop-shadow">{{ bus_number }}</span>
           </div>
           <div>
             <div class="flex items-center gap-2">
               <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-1.5">
-                Oblika tee
+                {{ stop_name }}
               </h1>
             </div>
             <p class="text-xs text-slate-400 font-medium tracking-wide flex items-center gap-1 mt-0.5">
@@ -123,15 +118,14 @@
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
-          <span>Reaalajas</span>
+          <span id="live-text">Reaalajas</span>
         </div>
       </header>
 
       <!-- Väljumiste sektsioon -->
       <section id="departures-container" class="mt-6 space-y-4">
-        <!-- Algne seis laetakse serverist või JS kaudu -->
         <div id="cards-wrapper" class="space-y-4">
-          <!-- Kaardid renderdatakse siia -->
+          <!-- Esialgne laadimisolek (skelett) -->
           <div class="animate-pulse space-y-4">
             <div class="h-28 bg-slate-800/50 rounded-2xl"></div>
             <div class="h-20 bg-slate-800/30 rounded-2xl"></div>
@@ -153,7 +147,6 @@
       <!-- Jalus: Uuendamise info ja nupud -->
       <footer class="mt-6 pt-5 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
         <div class="flex items-center gap-2">
-          <!-- Pöörlev/uuendamise laadimisikoon -->
           <button id="refresh-btn" onclick="manualRefresh()" title="Värskenda kohe" class="p-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition active:scale-95 flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-emerald-500/40">
             <svg id="refresh-icon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -178,7 +171,7 @@
 
   </main>
 
-  <!-- Reaalaja skript -->
+  <!-- Reaalaja skript (Flask backendiga suhtlemiseks) -->
   <script>
     const UPDATE_INTERVAL = 15; // sekundit
     let secondsUntilRefresh = UPDATE_INTERVAL;
@@ -186,13 +179,14 @@
     let countdownTimer = null;
     let isFetching = false;
 
-    // Funktsioon väljumiste renderdamiseks
+    // Renderdab DOM kaardid
     function renderDepartures(data) {
       const wrapper = document.getElementById('cards-wrapper');
       const emptyState = document.getElementById('empty-state');
       const emptyMessage = document.getElementById('empty-message');
       const lastUpdatedEl = document.getElementById('last-updated');
       const liveIndicator = document.getElementById('live-indicator');
+      const liveText = document.getElementById('live-text');
 
       if (data.updated_at) {
         lastUpdatedEl.textContent = data.updated_at;
@@ -202,14 +196,15 @@
         wrapper.innerHTML = '';
         emptyState.classList.remove('hidden');
         emptyMessage.textContent = data.message || (data.error ? data.error : 'Praegu väljumisi ei leitud.');
-        liveIndicator.classList.remove('bg-emerald-950/60', 'border-emerald-500/30', 'text-emerald-400');
-        liveIndicator.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-400');
+        
+        liveIndicator.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 text-xs font-semibold shadow-inner';
+        liveText.textContent = data.success ? 'Ootel' : 'Võrguviga';
         return;
       }
 
-      // Reaalajas indikaatori taastamine
-      liveIndicator.classList.add('bg-emerald-950/60', 'border-emerald-500/30', 'text-emerald-400');
-      liveIndicator.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-400');
+      // Reaalajas indikaator aktiivseks
+      liveIndicator.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 text-xs font-semibold shadow-inner';
+      liveText.textContent = 'Reaalajas';
       emptyState.classList.add('hidden');
 
       let html = '';
@@ -281,10 +276,10 @@
 
       wrapper.innerHTML = html;
       wrapper.classList.add('fade-update');
-      setTimeout(() => wrapper.classList.remove('fade-update'), 500);
+      setTimeout(() => wrapper.classList.remove('fade-update'), 400);
     }
 
-    // API päring
+    // API päring Flaski backendist
     async function fetchDeparturesData() {
       if (isFetching) return;
       isFetching = true;
@@ -306,22 +301,17 @@
       }
     }
 
-    // Käsitsi värskendamise nupp
     function manualRefresh() {
       fetchDeparturesData();
     }
 
-    // Loendur ja intervallid
-    function startTimers() {
-      // Esmane laadimine kohe
+    function startApp() {
       fetchDeparturesData();
 
-      // Taustapäring iga 15 sekundi järel
       refreshTimer = setInterval(() => {
         fetchDeparturesData();
       }, UPDATE_INTERVAL * 1000);
 
-      // Sekundite loendur nupu märgise jaoks
       countdownTimer = setInterval(() => {
         if (secondsUntilRefresh > 0) {
           secondsUntilRefresh--;
@@ -333,8 +323,7 @@
       }, 1000);
     }
 
-    // Käivita lehe laadimisel
-    window.addEventListener('DOMContentLoaded', startTimers);
+    window.addEventListener('DOMContentLoaded', startApp);
   </script>
 </body>
 </html>
