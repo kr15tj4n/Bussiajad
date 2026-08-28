@@ -15,7 +15,7 @@ app = Flask(__name__)
 STOP_ID = "1579"  # Oblika tee (kood: 19001-1 / SIRI id: 1579)
 STOP_NAME = "Oblika tee"
 BUS_NUMBER = "8"
-ROUTE_NAME = "Äigrumäe - Balti jaam - Väike-Õismäe"
+ROUTE_NAME = "Äigrumäe - Väike-Õismäe"
 OFFICIAL_SCHEDULE_URL = "https://transport.tallinn.ee/#bus/8/b-a/19001-1"
 SIRI_URL = f"https://transport.tallinn.ee/siri-stop-departures.php?stopid={STOP_ID}"
 TIMEZONE = zoneinfo.ZoneInfo("Europe/Tallinn")

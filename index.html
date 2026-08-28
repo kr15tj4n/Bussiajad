@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Buss 8 | Oblika tee - Reaalaja väljumised</title>
-  <meta name="description" content="Tallinna bussi nr 8 järgmised reaalajas väljumised Oblika tee peatusest. Töötab otse brauseris ja GitHub Pagesis.">
+  <!-- Thematic Bus 8 Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23020617'/%3E%3Crect x='4' y='4' width='56' height='56' rx='14' fill='%234b8501' stroke='%2310b981' stroke-width='1.5' stroke-opacity='0.4'/%3E%3Crect x='12' y='12' width='40' height='24' rx='6' fill='%230b1120' fill-opacity='0.85'/%3E%3Ctext x='32' y='30' fill='%23ffffff' font-family='sans-serif' font-weight='900' font-size='20' text-anchor='middle'%3E8%3C/text%3E%3Ccircle cx='16' cy='46' r='3.5' fill='%23fef08a'/%3E%3Ccircle cx='48' cy='46' r='3.5' fill='%23fef08a'/%3E%3Crect x='24' y='44' width='16' height='4.5' rx='2' fill='%230b1120' fill-opacity='0.7'/%3E%3C/svg%3E">
+  <link rel="alternate icon" href="favicon.svg" type="image/svg+xml">
 
   <!-- Google Fonts: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -103,9 +105,7 @@
             <p class="text-xs text-slate-400 font-medium tracking-wide flex items-center gap-1 mt-0.5">
               <span>Äigrumäe</span>
               <svg class="w-3 h-3 text-slate-500 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-              <span>Balti jaam</span>
-              <svg class="w-3 h-3 text-slate-500 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-              <span class="text-slate-300 font-semibold">Õismäe</span>
+              <span class="text-slate-300 font-semibold">Väike-Õismäe</span>
             </p>
           </div>
         </div>
@@ -331,17 +331,13 @@
           // 1. kaart: Peamine / Järgmine buss
           html += `
             <div class="glass-subcard rounded-2xl p-5 border-emerald-500/30 bg-gradient-to-br from-slate-900/90 to-slate-850/80 shadow-lg relative overflow-hidden">
-              <div class="flex items-start justify-between">
+              <div class="flex items-center justify-between">
                 <div>
-                  <div class="flex items-center gap-2 mb-1">
+                  <div class="flex items-center gap-2">
                     <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded-md border border-emerald-500/30">
                       Järgmine buss
                     </span>
                     ${delayBadge}
-                  </div>
-                  <div class="text-xs text-slate-400 flex items-center gap-1 mt-1">
-                    <span>Sihtkoht:</span>
-                    <span class="text-slate-200 font-medium">${dep.destination}</span>
                   </div>
                 </div>
 
@@ -373,7 +369,6 @@
                     <span class="text-[10px] font-semibold uppercase tracking-wider text-slate-400 bg-slate-800/80 px-2 py-0.5 rounded">
                       2. väljumine
                     </span>
-                    <span class="text-xs text-slate-300 font-medium">${dep.destination}</span>
                   </div>
                   <div class="mt-1 flex items-baseline gap-2">
                     <span class="font-mono text-2xl font-bold text-slate-100">${dep.time}</span>
