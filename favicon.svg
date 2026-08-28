@@ -1,19 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-
   <!-- Rattad (eestvaates) -->
-  <rect x="10" y="44" width="10" height="15" rx="3" fill="#020617"/>
-  <rect x="44" y="44" width="10" height="15" rx="3" fill="#020617"/>
+  <rect x="6" y="40" width="12" height="23" rx="4.5" fill="#020617"/>
+  <rect x="46" y="40" width="12" height="23" rx="4.5" fill="#020617"/>
 
   <!-- Bussi kere -->
-  <rect x="8" y="10" width="48" height="40" rx="9" fill="#00e0b3"/>
+  <rect x="3" y="2" width="58" height="48" rx="10" fill="#00e0b3"/>
 
   <!-- Esiklaas -->
-  <rect x="14" y="15" width="36" height="18" rx="5" fill="#020617"/>
+  <rect x="9" y="8" width="46" height="21" rx="6" fill="#020617"/>
 
   <!-- Esituled -->
-  <circle cx="17" cy="40" r="3.5" fill="#ffffff"/>
-  <circle cx="47" cy="40" r="3.5" fill="#ffffff"/>
+  <circle cx="14" cy="39" r="4.2" fill="#ffffff"/>
+  <circle cx="50" cy="39" r="4.2" fill="#ffffff"/>
 
   <!-- Iluvõre / numbrimärk -->
-  <rect x="24" y="38.5" width="16" height="3" rx="1.5" fill="#020617"/>
+  <rect x="22" y="37" width="20" height="4" rx="2" fill="#020617"/>
 </svg>
