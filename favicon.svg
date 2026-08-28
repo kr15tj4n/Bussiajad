@@ -1,10 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- Taust -->
-  <rect width="64" height="64" rx="16" fill="#020617"/>
 
   <!-- Rattad (eestvaates) -->
-  <rect x="10" y="44" width="10" height="12" rx="3" fill="#0f172a"/>
-  <rect x="44" y="44" width="10" height="12" rx="3" fill="#0f172a"/>
+  <rect x="10" y="44" width="10" height="15" rx="3" fill="#020617"/>
+  <rect x="44" y="44" width="10" height="15" rx="3" fill="#020617"/>
 
   <!-- Bussi kere -->
   <rect x="8" y="10" width="48" height="40" rx="9" fill="#00e0b3"/>
