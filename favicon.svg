@@ -1,28 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>
-    <linearGradient id="busGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#62ab02" />
-      <stop offset="100%" stop-color="#376201" />
-    </linearGradient>
-    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.5"/>
-    </filter>
-  </defs>
-
-  <!-- Taust / Märgis -->
+  <!-- Taust -->
   <rect width="64" height="64" rx="16" fill="#020617"/>
-  <rect x="4" y="4" width="56" height="56" rx="14" fill="url(#busGrad)" stroke="#10b981" stroke-width="1.5" stroke-opacity="0.4"/>
 
-  <!-- Bussi katus & aken -->
-  <rect x="12" y="12" width="40" height="24" rx="6" fill="#0b1120" fill-opacity="0.85"/>
+  <!-- Rattad (eestvaates) -->
+  <rect x="10" y="44" width="10" height="12" rx="3" fill="#0f172a"/>
+  <rect x="44" y="44" width="10" height="12" rx="3" fill="#0f172a"/>
 
-  <!-- Bussi number 8 esiklaasil -->
-  <text x="32" y="30" fill="#ffffff" font-family="Inter, -apple-system, sans-serif" font-weight="900" font-size="20" text-anchor="middle" letter-spacing="-0.5">8</text>
+  <!-- Bussi kere -->
+  <rect x="8" y="10" width="48" height="40" rx="9" fill="#00e0b3"/>
 
-  <!-- Bussi tuled -->
-  <circle cx="16" cy="46" r="3.5" fill="#fef08a" filter="url(#shadow)"/>
-  <circle cx="48" cy="46" r="3.5" fill="#fef08a" filter="url(#shadow)"/>
+  <!-- Esiklaas -->
+  <rect x="14" y="15" width="36" height="18" rx="5" fill="#020617"/>
+
+  <!-- Esituled -->
+  <circle cx="17" cy="40" r="3.5" fill="#ffffff"/>
+  <circle cx="47" cy="40" r="3.5" fill="#ffffff"/>
 
   <!-- Iluvõre / numbrimärk -->
-  <rect x="24" y="44" width="16" height="4.5" rx="2" fill="#0b1120" fill-opacity="0.7"/>
+  <rect x="24" y="38.5" width="16" height="3" rx="1.5" fill="#020617"/>
 </svg>
