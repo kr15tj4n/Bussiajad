@@ -33,9 +33,7 @@ def get_remaining_text(remaining_seconds: int) -> str:
     if remaining_seconds < 60:
         return "Saabub nüüd"
     minutes = round(remaining_seconds / 60)
-    if minutes <= 1:
-        return "1 min pärast"
-    return f"{minutes} min pärast"
+    return f"{minutes} min"
 
 
 def fetch_departures(limit: int = 2):

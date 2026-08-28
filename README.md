@@ -7,7 +7,7 @@ Rakendus kasutab `transport.tallinn.ee` ametlikku SIRI reaalaja andmevoogu ning 
 ---
 
 ## Omadused
-- **Reaalajas väljumised:** Järgmise kahe bussi saabumisajad (kellaaeg `HH:MM` ja loendur `X min pärast`).
+- **Reaalajas väljumised:** Järgmise kahe bussi saabumisajad (kellaaeg `HH:MM` ja loendur `X min`).
 - **Automaatne uuendus:** Taustapäringud iga 15 sekundi järel ilma lehte värskendamata.
 - **Graafikuhälvete kuvamine:** Näitab hilinemist või enneaegsust võrreldes ametliku sõiduplaaniga.
 - **Modernne Dark-mode disain:** Kohandatud Tailwind CSS klaasjas (glassmorphism) disain, mis sobib nii nutitelefoni kui ka seinaekraanile.

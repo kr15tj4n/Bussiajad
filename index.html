@@ -194,10 +194,7 @@
         return 'Saabub nüüd';
       }
       const minutes = Math.round(remainingSeconds / 60);
-      if (minutes <= 1) {
-        return '1 min pärast';
-      }
-      return `${minutes} min pärast`;
+      return `${minutes} min`;
     }
 
     // Pärib ja parsib SIRI CSV andmed otse transport.tallinn.ee-st
