@@ -14,9 +14,25 @@ app = Flask(__name__)
 # Konfiguratsioon ja konstandid
 STOP_ID = "1579"  # Oblika tee (kood: 19001-1 / SIRI id: 1579)
 STOP_NAME = "Oblika tee"
-BUS_NUMBER = "8"
-ROUTE_NAME = "Äigrumäe - Väike-Õismäe"
-OFFICIAL_SCHEDULE_URL = "https://transport.tallinn.ee/#bus/8/b-a/19001-1"
+
+BUS_CONFIG = {
+    "8": {
+        "number": "8",
+        "name": "Buss 8",
+        "destination": "Väike-Õismäe",
+        "route_name": "Äigrumäe - Väike-Õismäe",
+        "official_url": "https://transport.tallinn.ee/#bus/8/b-a/19001-1"
+    },
+    "8A": {
+        "number": "8A",
+        "name": "Buss 8A",
+        "destination": "Viru keskus",
+        "route_name": "Äigrumäe - Viru keskus",
+        "official_url": "https://transport.tallinn.ee/#bus/8a/b-a/19001-1"
+    }
+}
+
+ALLOWED_BUSES = set(BUS_CONFIG.keys())
 SIRI_URL = f"https://transport.tallinn.ee/siri-stop-departures.php?stopid={STOP_ID}"
 TIMEZONE = zoneinfo.ZoneInfo("Europe/Tallinn")
 
@@ -36,13 +52,15 @@ def get_remaining_text(remaining_seconds: int) -> str:
     return f"{minutes} min"
 
 
-def fetch_departures(limit: int = 2):
+def fetch_departures(line_filter: str = None, limit: int = 4):
     """
     Pärib transport.tallinn.ee SIRI API-st peatusest väljuvad bussid
-    ja filtreerib välja bussi nr 8 järgmised väljumised.
+    ja filtreerib välja bussi nr 8 ja 8A järgmised väljumised.
     """
     now = datetime.now(TIMEZONE)
     updated_at_str = now.strftime("%H:%M:%S")
+
+    selected_buses = {line_filter.upper()} if line_filter and line_filter.upper() in ALLOWED_BUSES else ALLOWED_BUSES
 
     try:
         headers = {
@@ -61,26 +79,21 @@ def fetch_departures(limit: int = 2):
                 "message": "Praegu väljumisi ei leitud"
             }
 
-        server_time_sec = None
         departures = []
-
-        # Esimesel real võib olla päis koos serveri ajaga sekundites
-        header_parts = lines[0].split(",")
-        if len(header_parts) >= 5 and header_parts[4].isdigit():
-            server_time_sec = int(header_parts[4])
 
         for line in lines[1:]:
             parts = line.split(",")
             # Formaat: Transport, RouteNum, ExpectedTimeInSeconds, ScheduleTimeInSeconds, Destination, RemainingSeconds, Flags
             if len(parts) >= 6:
                 transport_type = parts[0].strip().lower()
-                route_num = parts[1].strip()
+                route_num = parts[1].strip().upper()
 
-                if transport_type == "bus" and route_num == BUS_NUMBER:
+                if transport_type == "bus" and route_num in selected_buses:
                     try:
                         expected_sec = int(parts[2])
                         sched_sec = int(parts[3])
-                        destination = parts[4].strip() if len(parts) > 4 else "Väike-Õismäe"
+                        default_dest = BUS_CONFIG.get(route_num, {}).get("destination", "Tallinn")
+                        destination = parts[4].strip() if len(parts) > 4 and parts[4].strip() else default_dest
                         remaining_sec = int(parts[5])
                         flags = parts[6].strip() if len(parts) > 6 else ""
 
@@ -94,6 +107,7 @@ def fetch_departures(limit: int = 2):
                         remaining_text = get_remaining_text(remaining_sec)
 
                         departures.append({
+                            "line": route_num,
                             "time": time_str,
                             "scheduled_time": sched_time_str,
                             "destination": destination,
@@ -107,7 +121,10 @@ def fetch_departures(limit: int = 2):
                     except (ValueError, IndexError):
                         continue
 
-        # Piira tulemused soovitud hulgaga (vaikimisi 2)
+        # Sorteeri väljumised kronoloogiliselt
+        departures.sort(key=lambda d: d["remaining_seconds"])
+
+        # Piira tulemused soovitud hulgaga
         limited_departures = departures[:limit]
 
         return {
@@ -115,7 +132,7 @@ def fetch_departures(limit: int = 2):
             "departures": limited_departures,
             "updated_at": updated_at_str,
             "error": None,
-            "message": None if limited_departures else "Praegu väljumisi ei leitud (liin ei sõida hetkel)."
+            "message": None if limited_departures else ("Liinil väljumisi ei leitud." if line_filter else "Praegu väljumisi ei leitud.")
         }
 
     except requests.exceptions.RequestException as e:
@@ -139,21 +156,21 @@ def fetch_departures(limit: int = 2):
 @app.route("/")
 def index():
     """Pealeht - renderdab esmase vaate."""
-    data = fetch_departures(limit=2)
+    data = fetch_departures(limit=4)
     return render_template(
         "index.html",
         data=data,
-        bus_number=BUS_NUMBER,
-        stop_name=STOP_NAME,
-        route_name=ROUTE_NAME,
-        official_url=OFFICIAL_SCHEDULE_URL
+        bus_config=BUS_CONFIG,
+        stop_name=STOP_NAME
     )
 
 
 @app.route("/api/departures")
 def api_departures():
     """JSON API reaalaja andmete taustauuendusteks."""
-    data = fetch_departures(limit=2)
+    from flask import request
+    line = request.args.get("line", None)
+    data = fetch_departures(line_filter=line, limit=4)
     return jsonify(data)
 
 

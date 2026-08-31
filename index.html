@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buss 8 | Oblika tee - Reaalaja väljumised</title>
+  <title>Bussid 8 & 8A | Oblika tee - Reaalaja väljumised</title>
+  <meta name="description" content="Tallinna busside nr 8 ja 8A järgmised reaalajas väljumised Oblika tee peatusest.">
+
   <!-- Thematic Bus Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='10' y='40' width='10' height='22' rx='4' fill='%23020617'/%3E%3Crect x='44' y='40' width='10' height='22' rx='4' fill='%23020617'/%3E%3Crect x='8' y='3' width='48' height='49' rx='8' fill='%2300e0b3'/%3E%3Crect x='13' y='8' width='38' height='22' rx='5' fill='%23020617'/%3E%3Ccircle cx='18' cy='39' r='3.8' fill='%23ffffff'/%3E%3Ccircle cx='46' cy='39' r='3.8' fill='%23ffffff'/%3E%3Crect x='24' y='37' width='16' height='4' rx='2' fill='%23020617'/%3E%3C/svg%3E">
   <link rel="alternate icon" href="favicon.svg" type="image/svg+xml">
@@ -54,7 +56,7 @@
     }
 
     .glass-card {
-      background: rgba(15, 23, 42, 0.75);
+      background: rgba(15, 23, 42, 0.78);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -90,11 +92,16 @@
       <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-tallinn-green via-emerald-400 to-teal-500"></div>
 
       <!-- Päis: Liini info & reaalaja staatus -->
-      <header class="flex items-center justify-between pb-6 border-b border-slate-800/80">
+      <header class="flex items-center justify-between pb-5 border-b border-slate-800/80">
         <div class="flex items-center gap-3.5">
-          <!-- Bussi number -->
-          <div class="w-14 h-14 rounded-2xl bg-[#00e0b3] flex items-center justify-center shadow-lg shadow-[#00e0b3]/30 border border-white/20">
-            <span class="font-extrabold text-3xl text-slate-950 tracking-tight drop-shadow-sm">8</span>
+          <!-- Bussi numbrite märgid -->
+          <div class="flex items-center -space-x-2">
+            <div class="w-12 h-12 rounded-2xl bg-[#00e0b3] flex items-center justify-center shadow-lg shadow-[#00e0b3]/30 border border-white/20 z-10">
+              <span class="font-extrabold text-2xl text-slate-950 tracking-tight">8</span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-[#0284c7] flex items-center justify-center shadow-lg shadow-[#0284c7]/30 border border-white/20">
+              <span class="font-extrabold text-xl text-white tracking-tight">8A</span>
+            </div>
           </div>
           <div>
             <div class="flex items-center gap-2">
@@ -102,10 +109,10 @@
                 Oblika tee
               </h1>
             </div>
-            <p class="text-xs text-slate-400 font-medium tracking-wide flex items-center gap-1 mt-0.5">
+            <p id="route-subtitle" class="text-xs text-slate-400 font-medium tracking-wide flex items-center gap-1 mt-0.5">
               <span>Äigrumäe</span>
               <svg class="w-3 h-3 text-slate-500 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-              <span class="text-slate-300 font-semibold">Väike-Õismäe</span>
+              <span id="route-destination" class="text-slate-300 font-semibold">Väike-Õismäe / Viru keskus</span>
             </p>
           </div>
         </div>
@@ -120,11 +127,24 @@
         </div>
       </header>
 
+      <!-- Liinifiltri vahelehed -->
+      <nav class="mt-4 flex items-center gap-1.5 p-1 bg-slate-900/70 rounded-xl border border-slate-800/80 text-xs font-medium">
+        <button id="filter-all" onclick="setLineFilter('all')" class="flex-1 py-1.5 px-3 rounded-lg transition text-white bg-slate-800 shadow font-semibold">
+          Kõik (8 & 8A)
+        </button>
+        <button id="filter-8" onclick="setLineFilter('8')" class="flex-1 py-1.5 px-3 rounded-lg transition text-slate-400 hover:text-slate-200">
+          Liin 8
+        </button>
+        <button id="filter-8a" onclick="setLineFilter('8A')" class="flex-1 py-1.5 px-3 rounded-lg transition text-slate-400 hover:text-slate-200">
+          Liin 8A
+        </button>
+      </nav>
+
       <!-- Väljumiste sektsioon -->
-      <section id="departures-container" class="mt-6 space-y-4">
-        <div id="cards-wrapper" class="space-y-4">
+      <section id="departures-container" class="mt-5 space-y-3.5">
+        <div id="cards-wrapper" class="space-y-3.5">
           <!-- Esialgne laadimisolek (skelett) -->
-          <div class="animate-pulse space-y-4">
+          <div class="animate-pulse space-y-3.5">
             <div class="h-28 bg-slate-800/50 rounded-2xl"></div>
             <div class="h-20 bg-slate-800/30 rounded-2xl"></div>
           </div>
@@ -138,7 +158,7 @@
             </svg>
           </div>
           <p id="empty-message" class="text-sm text-slate-300 font-medium">Praegu väljumisi ei leitud.</p>
-          <p class="text-xs text-slate-500 mt-1">Bussiliin võib olla öisel puhkeajal või andmed uuenevad.</p>
+          <p id="empty-submessage" class="text-xs text-slate-500 mt-1">Bussiliin võib olla puhkeajal või andmed uuenevad.</p>
         </div>
       </section>
 
@@ -158,10 +178,12 @@
           <span id="countdown-badge" class="font-mono text-[11px] px-2 py-0.5 rounded bg-slate-800 text-slate-400">
             15s
           </span>
-          <a href="https://transport.tallinn.ee/#bus/8/b-a/19001-1" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-slate-400 hover:text-emerald-400 transition underline underline-offset-4 decoration-slate-700 hover:decoration-emerald-400">
-            <span>Sõiduplaan</span>
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          </a>
+          <div class="inline-flex items-center gap-1.5 text-slate-400">
+            <span>Plaan:</span>
+            <a href="https://transport.tallinn.ee/#bus/8/b-a/19001-1" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-400 font-semibold underline underline-offset-4 decoration-slate-700 hover:decoration-emerald-400 transition">8</a>
+            <span class="text-slate-600">·</span>
+            <a href="https://transport.tallinn.ee/#bus/8a/b-a/19001-1" target="_blank" rel="noopener noreferrer" class="hover:text-sky-400 font-semibold underline underline-offset-4 decoration-slate-700 hover:decoration-sky-400 transition">8A</a>
+          </div>
         </div>
       </footer>
 
@@ -169,10 +191,14 @@
 
   </main>
 
-  <!-- Staatiline brauseri JavaScript (puudub igasugune backend-sõltuvus) -->
+  <!-- Staatiline brauseri JavaScript (otsepäring transport.tallinn.ee SIRI andmevoost) -->
   <script>
     const STOP_ID = '1579'; // Oblika tee (kood: 19001-1 / SIRI id: 1579)
-    const BUS_NUMBER = '8';
+    const ALLOWED_BUSES = ['8', '8A'];
+    const BUS_DEFAULTS = {
+      '8': { destination: 'Väike-Õismäe', route: 'Äigrumäe - Väike-Õismäe' },
+      '8A': { destination: 'Viru keskus', route: 'Äigrumäe - Viru keskus' }
+    };
     const SIRI_URL = `https://transport.tallinn.ee/siri-stop-departures.php?stopid=${STOP_ID}`;
     const UPDATE_INTERVAL = 15; // sekundit
 
@@ -180,6 +206,49 @@
     let refreshTimer = null;
     let countdownTimer = null;
     let isFetching = false;
+    let activeFilter = 'all'; // 'all', '8', '8A'
+    let lastFetchedDepartures = [];
+    let lastUpdatedTime = '--:--:--';
+
+    function getLineBadge(line) {
+      if (line === '8A') {
+        return `<span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-lg bg-sky-500 text-slate-950 font-black text-sm tracking-tight shadow-sm">8A</span>`;
+      }
+      return `<span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-lg bg-[#00e0b3] text-slate-950 font-black text-sm tracking-tight shadow-sm">8</span>`;
+    }
+
+    function setLineFilter(filter) {
+      activeFilter = filter;
+      
+      const btnAll = document.getElementById('filter-all');
+      const btn8 = document.getElementById('filter-8');
+      const btn8A = document.getElementById('filter-8a');
+      const destEl = document.getElementById('route-destination');
+
+      const activeClasses = ['text-white', 'bg-slate-800', 'shadow', 'font-semibold'];
+      const inactiveClasses = ['text-slate-400', 'hover:text-slate-200'];
+
+      [btnAll, btn8, btn8A].forEach(btn => {
+        btn.classList.remove(...activeClasses);
+        btn.classList.add(...inactiveClasses);
+      });
+
+      if (filter === '8') {
+        btn8.classList.add(...activeClasses);
+        btn8.classList.remove(...inactiveClasses);
+        destEl.textContent = 'Väike-Õismäe';
+      } else if (filter === '8A') {
+        btn8A.classList.add(...activeClasses);
+        btn8A.classList.remove(...inactiveClasses);
+        destEl.textContent = 'Viru keskus';
+      } else {
+        btnAll.classList.add(...activeClasses);
+        btnAll.classList.remove(...inactiveClasses);
+        destEl.textContent = 'Väike-Õismäe / Viru keskus';
+      }
+
+      renderUI(lastFetchedDepartures);
+    }
 
     // Teisendab sekundid alates südaööst formaati HH:MM
     function formatSecondsToTime(secondsFromMidnight) {
@@ -219,12 +288,13 @@
           // Formaat: Transport, RouteNum, ExpectedTimeInSeconds, ScheduleTimeInSeconds, Destination, RemainingSeconds, Flags
           if (parts.length >= 6) {
             const transportType = parts[0].trim().toLowerCase();
-            const routeNum = parts[1].trim();
+            const routeNum = parts[1].trim().toUpperCase();
 
-            if (transportType === 'bus' && routeNum === BUS_NUMBER) {
+            if (transportType === 'bus' && ALLOWED_BUSES.includes(routeNum)) {
               const expectedSec = parseInt(parts[2], 10);
               const schedSec = parseInt(parts[3], 10);
-              const destination = (parts[4] && parts[4].trim()) || 'Väike-Õismäe';
+              const defaultDest = BUS_DEFAULTS[routeNum]?.destination || 'Tallinn';
+              const destination = (parts[4] && parts[4].trim()) || defaultDest;
               const remainingSec = parseInt(parts[5], 10);
               const flags = parts[6] ? parts[6].trim() : '';
 
@@ -242,6 +312,7 @@
               else if (delayMinutes < 0) delayText = `${delayMinutes} min`;
 
               departures.push({
+                line: routeNum,
                 time: timeStr,
                 scheduledTime: schedTimeStr,
                 destination: destination,
@@ -256,30 +327,18 @@
           }
         }
 
-        // Võta 2 järgmist väljumist
-        const topDepartures = departures.slice(0, 2);
-        
-        const now = new Date();
-        const timeString = now.toLocaleTimeString('et-EE', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        // Sorteeri kronoloogiliselt
+        departures.sort((a, b) => a.remainingSeconds - b.remainingSeconds);
 
-        renderDepartures({
-          success: true,
-          departures: topDepartures,
-          updatedAt: timeString,
-          message: topDepartures.length === 0 ? 'Praegu väljumisi ei leitud (liin ei sõida hetkel).' : null
-        });
-
-      } catch (error) {
-        console.error('Viga andmete pärimisel:', error);
         const now = new Date();
-        const timeString = now.toLocaleTimeString('et-EE', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        
-        renderDepartures({
-          success: false,
-          departures: [],
-          updatedAt: timeString,
-          message: 'Ühenduse viga transport.tallinn.ee serveriga. Proovitakse uuesti.'
-        });
+        lastUpdatedTime = now.toTimeString().split(' ')[0];
+        lastFetchedDepartures = departures;
+
+        renderUI(departures);
+
+      } catch (err) {
+        console.error('Viga andmete pärimisel:', err);
+        renderError('Andmeühenduse tõrge transport.tallinn.ee serveriga.');
       } finally {
         isFetching = false;
         refreshIcon.classList.remove('animate-spin');
@@ -287,26 +346,40 @@
       }
     }
 
-    // Renderdab DOM kaardid
-    function renderDepartures(data) {
+    function renderUI(allDepartures) {
       const wrapper = document.getElementById('cards-wrapper');
       const emptyState = document.getElementById('empty-state');
       const emptyMessage = document.getElementById('empty-message');
+      const emptySubmessage = document.getElementById('empty-submessage');
       const lastUpdatedEl = document.getElementById('last-updated');
       const liveIndicator = document.getElementById('live-indicator');
       const liveText = document.getElementById('live-text');
 
-      if (data.updatedAt) {
-        lastUpdatedEl.textContent = data.updatedAt;
+      lastUpdatedEl.textContent = lastUpdatedTime;
+
+      // Filtreeri vastavalt aktiivsele režiimile
+      let departures = allDepartures;
+      if (activeFilter !== 'all') {
+        departures = allDepartures.filter(dep => dep.line === activeFilter);
       }
 
-      if (!data.success || !data.departures || data.departures.length === 0) {
+      if (departures.length === 0) {
         wrapper.innerHTML = '';
         emptyState.classList.remove('hidden');
-        emptyMessage.textContent = data.message || 'Praegu väljumisi ei leitud.';
         
+        if (activeFilter === '8A') {
+          emptyMessage.textContent = 'Liinil 8A hetkel väljumisi ei ole.';
+          emptySubmessage.textContent = 'Buss 8A sõidab peamiselt tööpäeviti tipptundidel (Äigrumäe → Viru keskus).';
+        } else if (activeFilter === '8') {
+          emptyMessage.textContent = 'Liinil 8 hetkel väljumisi ei leitud.';
+          emptySubmessage.textContent = 'Bussiliin võib olla öisel puhkeajal või andmed uuenevad.';
+        } else {
+          emptyMessage.textContent = 'Praegu väljumisi ei leitud.';
+          emptySubmessage.textContent = 'Bussiliinid võivad olla puhkeajal või andmed uuenevad.';
+        }
+
         liveIndicator.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 text-xs font-semibold shadow-inner';
-        liveText.textContent = data.success ? 'Ootel' : 'Võrguviga';
+        liveText.textContent = 'Ootel';
         return;
       }
 
@@ -317,24 +390,30 @@
 
       let html = '';
 
-      data.departures.forEach((dep, index) => {
+      departures.slice(0, 4).forEach((dep, index) => {
         const isFirst = index === 0;
         const isImminent = dep.remainingMinutes <= 2;
         const delayBadge = dep.delayMinutes !== 0 
           ? `<span class="text-xs px-2 py-0.5 rounded-full ${dep.delayMinutes > 0 ? 'bg-amber-950/60 text-amber-300 border border-amber-500/30' : 'bg-blue-950/60 text-blue-300 border border-blue-500/30'}">${dep.delayText}</span>`
           : `<span class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">Graafikus</span>`;
 
+        const badgeHtml = getLineBadge(dep.line);
+
         if (isFirst) {
           // 1. kaart: Peamine / Järgmine buss
           html += `
             <div class="glass-subcard rounded-2xl p-5 border-emerald-500/30 bg-gradient-to-br from-slate-900/90 to-slate-850/80 shadow-lg relative overflow-hidden">
               <div class="flex items-center justify-between">
-                <div>
-                  <div class="flex items-center gap-2">
-                    <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded-md border border-emerald-500/30">
-                      Järgmine buss
-                    </span>
-                    ${delayBadge}
+                <div class="flex items-center gap-2.5">
+                  ${badgeHtml}
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded-md border border-emerald-500/30">
+                        Järgmine
+                      </span>
+                      ${delayBadge}
+                    </div>
+                    <span class="text-xs text-slate-400 mt-0.5 block font-medium">→ ${dep.destination}</span>
                   </div>
                 </div>
 
@@ -357,19 +436,18 @@
             </div>
           `;
         } else {
-          // 2. kaart: Järgnev väljumine
+          // Järgnevad väljumised
           html += `
-            <div class="glass-subcard rounded-2xl p-4 border-slate-800 bg-slate-900/50 shadow transition-all hover:bg-slate-900/70">
+            <div class="glass-subcard rounded-2xl p-3.5 border-slate-800 bg-slate-900/50 shadow transition-all hover:bg-slate-900/70">
               <div class="flex items-center justify-between">
-                <div>
-                  <div class="flex items-center gap-2">
-                    <span class="text-[10px] font-semibold uppercase tracking-wider text-slate-400 bg-slate-800/80 px-2 py-0.5 rounded">
-                      2. väljumine
-                    </span>
-                  </div>
-                  <div class="mt-1 flex items-baseline gap-2">
-                    <span class="font-mono text-2xl font-bold text-slate-100">${dep.time}</span>
-                    <span class="text-xs text-slate-400 font-medium">(${dep.remainingText})</span>
+                <div class="flex items-center gap-3">
+                  ${badgeHtml}
+                  <div>
+                    <div class="flex items-baseline gap-2">
+                      <span class="font-mono text-xl font-bold text-slate-100">${dep.time}</span>
+                      <span class="text-xs text-slate-400 font-medium">(${dep.remainingText})</span>
+                    </div>
+                    <span class="text-[11px] text-slate-400">→ ${dep.destination}</span>
                   </div>
                 </div>
 
@@ -385,6 +463,23 @@
       wrapper.innerHTML = html;
       wrapper.classList.add('fade-update');
       setTimeout(() => wrapper.classList.remove('fade-update'), 400);
+    }
+
+    function renderError(errorMsg) {
+      const wrapper = document.getElementById('cards-wrapper');
+      const emptyState = document.getElementById('empty-state');
+      const emptyMessage = document.getElementById('empty-message');
+      const emptySubmessage = document.getElementById('empty-submessage');
+      const liveIndicator = document.getElementById('live-indicator');
+      const liveText = document.getElementById('live-text');
+
+      wrapper.innerHTML = '';
+      emptyState.classList.remove('hidden');
+      emptyMessage.textContent = errorMsg;
+      emptySubmessage.textContent = 'Proovitakse automaatselt uuesti...';
+
+      liveIndicator.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 text-xs font-semibold shadow-inner';
+      liveText.textContent = 'Võrguviga';
     }
 
     function manualRefresh() {
