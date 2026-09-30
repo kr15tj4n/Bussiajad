@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bussiajad-v1';
+const CACHE_NAME = 'bussiajad-v2';
 const STATIC_ASSETS = [
   './',
   './index.html',
