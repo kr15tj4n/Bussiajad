@@ -13,6 +13,7 @@ Rakendus võimaldab ühe pilguga näha bussi saabumisaega ilma kohmakat sõidupl
 - **Automaatne uuendus:** Andmed ja sekundiloendur uuenevad automaatselt taustal iga 15 sekundi järel.
 - **Graafikupõhine info:** Näitab bussi tegelikku saabumisaega ja hälvet võrreldes ametliku graafikuga.
 - **Silmasõbralik tume disain:** Kaasaegne klaasjas tume välimus (Glassmorphism), mis on optimeeritud nii mobiilile kui ka suurematele ekraanidele.
+- **PWA (Progressive Web App) tugi:** Paigaldatav telefonisse ja arvutisse nagu päris äpp (koduekraani otseteed, võrguühenduseta kest, automaatne vahemälu).
 - **Otseteed sõiduplaanidele:** Kiirlingid ametlikele Tallinna transpordi sõiduplaanidele (buss 8 ja 8A).
 
 ---
@@ -20,3 +21,4 @@ Rakendus võimaldab ühe pilguga näha bussi saabumisaega ilma kohmakat sõidupl
 ## Andmeallikas
 
 Rakendus kuvab reaalaja andmeid otse Tallinna Transpordiameti ametlikust andmevoost (`transport.tallinn.ee`).
+

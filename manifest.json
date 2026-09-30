@@ -1,0 +1,63 @@
+{
+  "name": "Bussid 8 & 8A | Oblika tee",
+  "short_name": "Bussiajad",
+  "description": "Tallinna busside nr 8 ja 8A reaalajas väljumisajad Oblika tee peatusest.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "categories": ["transportation", "utilities", "travel"],
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Kõik väljumised (8 & 8A)",
+      "short_name": "Kõik",
+      "description": "Vaata kõiki väljumisi korraga",
+      "url": "./",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Buss 8 (Väike-Õismäe)",
+      "short_name": "Buss 8",
+      "description": "Ainult liini 8 väljumised",
+      "url": "./?filter=8",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Buss 8A (Viru keskus)",
+      "short_name": "Buss 8A",
+      "description": "Ainult liini 8A väljumised",
+      "url": "./?filter=8A",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

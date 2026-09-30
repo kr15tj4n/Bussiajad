@@ -6,6 +6,16 @@
   <title>Bussid 8 & 8A | Oblika tee - Reaalaja väljumised</title>
   <meta name="description" content="Tallinna busside nr 8 ja 8A järgmised reaalajas väljumised Oblika tee peatusest.">
 
+  <!-- PWA & Mobile Meta Tags -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#020617">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Bussiajad">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png">
+
   <!-- Thematic Bus Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='10' y='40' width='10' height='22' rx='4' fill='%23020617'/%3E%3Crect x='44' y='40' width='10' height='22' rx='4' fill='%23020617'/%3E%3Crect x='8' y='3' width='48' height='49' rx='8' fill='%2300e0b3'/%3E%3Crect x='13' y='8' width='38' height='22' rx='5' fill='%23020617'/%3E%3Ccircle cx='18' cy='39' r='3.8' fill='%23ffffff'/%3E%3Ccircle cx='46' cy='39' r='3.8' fill='%23ffffff'/%3E%3Crect x='24' y='37' width='16' height='4' rx='2' fill='%23020617'/%3E%3C/svg%3E">
   <link rel="alternate icon" href="favicon.svg" type="image/svg+xml">
@@ -173,6 +183,12 @@
         </div>
 
         <div class="flex items-center gap-3">
+          <button id="pwa-install-btn" class="hidden items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-semibold transition active:scale-95" title="Paigalda rakendus seadmesse">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            <span>Paigalda</span>
+          </button>
           <span id="countdown-badge" class="font-mono text-[11px] px-2 py-0.5 rounded bg-slate-800 text-slate-400">
             15s
           </span>
@@ -484,7 +500,83 @@
       fetchDepartures();
     }
 
+    let deferredInstallPrompt = null;
+
+    function initPWA() {
+      // 1. Service Workeri registreerimine
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js')
+            .then((reg) => {
+              console.log('PWA Service Worker registreeritud:', reg.scope);
+            })
+            .catch((err) => {
+              console.warn('PWA Service Worker tõrge:', err);
+            });
+        });
+      }
+
+      // 2. PWA paigaldamise viiba kuulaja (Chrome / Android / Desktop)
+      const installBtn = document.getElementById('pwa-install-btn');
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredInstallPrompt = e;
+        if (installBtn) {
+          installBtn.classList.remove('hidden');
+          installBtn.classList.add('inline-flex');
+        }
+      });
+
+      if (installBtn) {
+        installBtn.addEventListener('click', async () => {
+          if (!deferredInstallPrompt) return;
+          deferredInstallPrompt.prompt();
+          const choiceResult = await deferredInstallPrompt.userChoice;
+          if (choiceResult.outcome === 'accepted') {
+            console.log('Kasutaja paigaldas PWA');
+          }
+          deferredInstallPrompt = null;
+          installBtn.classList.add('hidden');
+          installBtn.classList.remove('inline-flex');
+        });
+      }
+
+      window.addEventListener('appinstalled', () => {
+        deferredInstallPrompt = null;
+        if (installBtn) {
+          installBtn.classList.add('hidden');
+          installBtn.classList.remove('inline-flex');
+        }
+        console.log('PWA on edukalt paigaldatud!');
+      });
+
+      // 3. Võrguühenduse (Online/Offline) oleku jälgimine
+      window.addEventListener('online', () => {
+        fetchDepartures();
+      });
+
+      window.addEventListener('offline', () => {
+        const liveIndicator = document.getElementById('live-indicator');
+        const liveText = document.getElementById('live-text');
+        if (liveIndicator && liveText) {
+          liveIndicator.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-950/60 border border-amber-500/30 text-amber-400 text-xs font-semibold shadow-inner';
+          liveText.textContent = 'Offline';
+        }
+      });
+    }
+
     function startApp() {
+      // Kontrolli URL parameetrit (nt ?filter=8 või ?filter=8A PWA otseteede jaoks)
+      const urlParams = new URLSearchParams(window.location.search);
+      const filterParam = urlParams.get('filter');
+      if (filterParam) {
+        const normalized = filterParam.toUpperCase();
+        if (normalized === '8' || normalized === '8A') {
+          setLineFilter(normalized);
+        }
+      }
+
+      initPWA();
       fetchDepartures();
 
       refreshTimer = setInterval(() => {
