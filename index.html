@@ -171,36 +171,35 @@
       </section>
 
       <!-- Jalus: Uuendamise info ja nupud -->
-      <footer class="mt-6 pt-5 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
-        <div class="flex items-center gap-2">
+      <footer class="mt-6 pt-5 border-t border-slate-800/80 flex items-center justify-between gap-2 text-xs text-slate-400">
+        <div class="flex items-center gap-1.5 sm:gap-2">
           <!-- Värskenda (ainult ikoon) -->
-          <button id="refresh-btn" onclick="manualRefresh()" title="Värskenda kohe" class="p-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition active:scale-95 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-emerald-500/40">
+          <button id="refresh-btn" onclick="manualRefresh()" title="Värskenda kohe" class="p-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition active:scale-95 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-emerald-500/40 flex-shrink-0">
             <svg id="refresh-icon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
           </button>
 
-          <!-- Paigalda äpp (Värskenda kõrval) -->
-          <button id="pwa-install-btn" class="hidden items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-semibold transition active:scale-95" title="Paigalda rakendus seadmesse">
+          <!-- Paigalda äpp (mobiilis ainult ikoon, suuremal ekraanil ka tekst) -->
+          <button id="pwa-install-btn" class="hidden items-center gap-1.5 p-1.5 sm:px-2.5 sm:py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-semibold transition active:scale-95 flex-shrink-0" title="Paigalda rakendus seadmesse">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
-            <span>Paigalda</span>
+            <span class="hidden sm:inline">Paigalda</span>
           </button>
 
-          <span>Uuendatud: <span id="last-updated" class="font-mono text-slate-300 font-semibold">--:--:--</span></span>
-        </div>
+          <span class="whitespace-nowrap">Uuendatud: <span id="last-updated" class="font-mono text-slate-300 font-semibold">--:--:--</span></span>
 
-        <div class="flex items-center gap-3">
-          <span id="countdown-badge" class="font-mono text-[11px] px-2 py-0.5 rounded bg-slate-800 text-slate-400">
+          <span id="countdown-badge" class="font-mono text-[11px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 flex-shrink-0">
             15s
           </span>
-          <div class="inline-flex items-center gap-1.5 text-slate-400">
-            <span>Plaan:</span>
-            <a href="https://transport.tallinn.ee/#bus/8/b-a/19001-1" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-400 font-semibold underline underline-offset-4 decoration-slate-700 hover:decoration-emerald-400 transition">8</a>
-            <span class="text-slate-600">·</span>
-            <a href="https://transport.tallinn.ee/#bus/8a/b-a/19001-1" target="_blank" rel="noopener noreferrer" class="hover:text-sky-400 font-semibold underline underline-offset-4 decoration-slate-700 hover:decoration-sky-400 transition">8A</a>
-          </div>
+        </div>
+
+        <div class="flex items-center gap-1.5 text-slate-400 flex-shrink-0">
+          <span>Plaan:</span>
+          <a href="https://transport.tallinn.ee/#bus/8/b-a/19001-1" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-400 font-semibold underline underline-offset-4 decoration-slate-700 hover:decoration-emerald-400 transition">8</a>
+          <span class="text-slate-600">·</span>
+          <a href="https://transport.tallinn.ee/#bus/8a/b-a/19001-1" target="_blank" rel="noopener noreferrer" class="hover:text-sky-400 font-semibold underline underline-offset-4 decoration-slate-700 hover:decoration-sky-400 transition">8A</a>
         </div>
       </footer>
 
