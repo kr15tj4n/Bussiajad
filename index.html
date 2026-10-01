@@ -124,15 +124,6 @@
             </p>
           </div>
         </div>
-
-        <!-- Reaalaja olekunupp / Live indikaator -->
-        <div id="live-indicator" class="flex-shrink-0 flex items-center gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 text-[11px] sm:text-xs font-semibold shadow-inner">
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          <span id="live-text">Reaalajas</span>
-        </div>
       </header>
 
       <!-- Liinifiltri vahelehed -->
@@ -372,8 +363,6 @@
       const emptyMessage = document.getElementById('empty-message');
       const emptySubmessage = document.getElementById('empty-submessage');
       const lastUpdatedEl = document.getElementById('last-updated');
-      const liveIndicator = document.getElementById('live-indicator');
-      const liveText = document.getElementById('live-text');
 
       lastUpdatedEl.textContent = lastUpdatedTime;
 
@@ -398,14 +387,9 @@
           emptySubmessage.textContent = 'Bussiliinid võivad olla puhkeajal või andmed uuenevad.';
         }
 
-        liveIndicator.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 text-xs font-semibold shadow-inner';
-        liveText.textContent = 'Ootel';
         return;
       }
 
-      // Reaalajas indikaator aktiivseks
-      liveIndicator.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 text-xs font-semibold shadow-inner';
-      liveText.textContent = 'Reaalajas';
       emptyState.classList.add('hidden');
 
       let html = '';
@@ -452,7 +436,7 @@
                   <span class="font-mono text-4xl sm:text-5xl font-extrabold text-white tracking-tight">${dep.time}</span>
                   ${dep.scheduledTime !== dep.time ? `<span class="font-mono text-xs text-slate-500 line-through">plaanis ${dep.scheduledTime}</span>` : ''}
                 </div>
-                <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" title="Vaata liini ${dep.line} bussi reaalajas kaardil" class="inline-flex items-center gap-1.5 p-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-300 hover:text-emerald-300 border border-slate-700/80 text-xs font-semibold transition active:scale-95 shadow-sm">
+                <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" title="Vaata liini ${dep.line} bussi reaalajas kaardil" class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-300 hover:text-emerald-300 border border-slate-700/80 text-xs font-semibold transition active:scale-95 shadow-sm">
                   <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                   </svg>
@@ -496,16 +480,11 @@
       const emptyState = document.getElementById('empty-state');
       const emptyMessage = document.getElementById('empty-message');
       const emptySubmessage = document.getElementById('empty-submessage');
-      const liveIndicator = document.getElementById('live-indicator');
-      const liveText = document.getElementById('live-text');
 
       wrapper.innerHTML = '';
       emptyState.classList.remove('hidden');
       emptyMessage.textContent = errorMsg;
       emptySubmessage.textContent = 'Proovitakse automaatselt uuesti...';
-
-      liveIndicator.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 text-xs font-semibold shadow-inner';
-      liveText.textContent = 'Võrguviga';
     }
 
     function manualRefresh() {
@@ -565,15 +544,6 @@
       // 3. Võrguühenduse (Online/Offline) oleku jälgimine
       window.addEventListener('online', () => {
         fetchDepartures();
-      });
-
-      window.addEventListener('offline', () => {
-        const liveIndicator = document.getElementById('live-indicator');
-        const liveText = document.getElementById('live-text');
-        if (liveIndicator && liveText) {
-          liveIndicator.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-950/60 border border-amber-500/30 text-amber-400 text-xs font-semibold shadow-inner';
-          liveText.textContent = 'Offline';
-        }
       });
     }
 
