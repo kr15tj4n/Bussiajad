@@ -452,11 +452,11 @@
                   <span class="font-mono text-4xl sm:text-5xl font-extrabold text-white tracking-tight">${dep.time}</span>
                   ${dep.scheduledTime !== dep.time ? `<span class="font-mono text-xs text-slate-500 line-through">plaanis ${dep.scheduledTime}</span>` : ''}
                 </div>
-                <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" title="Vaata liini ${dep.line} bussi reaalajas kaardil" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-300 hover:text-emerald-300 border border-slate-700/80 text-xs font-semibold transition active:scale-95 shadow-sm">
+                <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" title="Vaata liini ${dep.line} bussi reaalajas kaardil" class="inline-flex items-center gap-1.5 p-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-300 hover:text-emerald-300 border border-slate-700/80 text-xs font-semibold transition active:scale-95 shadow-sm">
                   <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                   </svg>
-                  <span>Kaart</span>
+                  <span class="hidden sm:inline">Kaart</span>
                 </a>
               </div>
             </div>
