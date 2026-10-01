@@ -215,6 +215,10 @@
       '8': { destination: 'Väike-Õismäe', route: 'Äigrumäe - Väike-Õismäe' },
       '8A': { destination: 'Viru keskus', route: 'Äigrumäe - Viru keskus' }
     };
+    const BUS_MAPS = {
+      '8': 'https://transport.tallinn.ee/#bus/8/b-a/19001-1/map',
+      '8A': 'https://transport.tallinn.ee/#bus/8a/b-a/19001-1/map'
+    };
     const SIRI_URL = `https://transport.tallinn.ee/siri-stop-departures.php?stopid=${STOP_ID}`;
     const UPDATE_INTERVAL = 15; // sekundit
 
@@ -409,6 +413,7 @@
       departures.slice(0, 4).forEach((dep, index) => {
         const isFirst = index === 0;
         const isImminent = dep.remainingMinutes <= 2;
+        const mapUrl = BUS_MAPS[dep.line] || `https://transport.tallinn.ee/#bus/${dep.line.toLowerCase()}/b-a/19001-1/map`;
         const delayBadge = dep.delayMinutes !== 0 
           ? `<span class="text-xs px-2 py-0.5 rounded-full ${dep.delayMinutes > 0 ? 'bg-amber-950/60 text-amber-300 border border-amber-500/30' : 'bg-blue-950/60 text-blue-300 border border-blue-500/30'}">${dep.delayText}</span>`
           : `<span class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">Graafikus</span>`;
@@ -441,13 +446,18 @@
                 </div>
               </div>
 
-              <!-- Suur kellaaeg -->
-              <div class="mt-4 flex items-baseline justify-between pt-2 border-t border-slate-800/60">
+              <!-- Suur kellaaeg & Kaart nupp -->
+              <div class="mt-4 flex items-center justify-between pt-3 border-t border-slate-800/60">
                 <div class="flex items-baseline gap-2">
                   <span class="font-mono text-4xl sm:text-5xl font-extrabold text-white tracking-tight">${dep.time}</span>
                   ${dep.scheduledTime !== dep.time ? `<span class="font-mono text-xs text-slate-500 line-through">plaanis ${dep.scheduledTime}</span>` : ''}
                 </div>
-                <span class="text-xs text-slate-400">väljumisaeg</span>
+                <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" title="Vaata liini ${dep.line} bussi reaalajas kaardil" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-300 hover:text-emerald-300 border border-slate-700/80 text-xs font-semibold transition active:scale-95 shadow-sm">
+                  <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                  </svg>
+                  <span>Kaart</span>
+                </a>
               </div>
             </div>
           `;

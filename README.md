@@ -14,6 +14,7 @@ Rakendus võimaldab ühe pilguga näha bussi saabumisaega ilma kohmakat sõidupl
 - **Graafikupõhine info:** Näitab bussi tegelikku saabumisaega ja hälvet võrreldes ametliku graafikuga.
 - **Silmasõbralik tume disain:** Kaasaegne klaasjas tume välimus (Glassmorphism), mis on optimeeritud nii mobiilile kui ka suurematele ekraanidele.
 - **PWA (Progressive Web App) tugi:** Paigaldatav telefonisse ja arvutisse nagu päris äpp (koduekraani otseteed, võrguühenduseta kest, automaatne vahemälu).
+- **Reaalajas kaardijälgimine:** Otseteed ja kaardinupud busside 8 ja 8A asukoha ja marsruudi vaatamiseks reaalajas kaardil.
 - **Otseteed sõiduplaanidele:** Kiirlingid ametlikele Tallinna transpordi sõiduplaanidele (buss 8 ja 8A).
 
 ---
