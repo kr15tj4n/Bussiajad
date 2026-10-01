@@ -127,15 +127,17 @@
       </header>
 
       <!-- Liinifiltri vahelehed -->
-      <nav class="mt-4 flex items-center gap-1.5 p-1 bg-slate-900/70 rounded-xl border border-slate-800/80 text-xs font-semibold">
-        <button id="filter-all" onclick="setLineFilter('all')" class="flex-1 py-1.5 px-3 rounded-lg transition text-white bg-slate-800 shadow font-semibold">
-          Liinid 8 / 8A
+      <nav class="mt-4 grid grid-cols-3 gap-1.5 p-1 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-inner text-xs sm:text-[13px] font-semibold">
+        <button id="filter-all" onclick="setLineFilter('all')" class="py-2 px-2.5 sm:px-3 rounded-xl transition-all duration-200 text-white bg-slate-800 border border-slate-600/80 shadow-md font-bold flex items-center justify-center gap-1.5">
+          <span>Kõik (8 & 8A)</span>
         </button>
-        <button id="filter-8" onclick="setLineFilter('8')" class="flex-1 py-1.5 px-3 rounded-lg transition text-slate-400 hover:text-slate-200 font-semibold">
-          Liin 8
+        <button id="filter-8" onclick="setLineFilter('8')" class="py-2 px-2.5 sm:px-3 rounded-xl transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-800/50 border border-transparent flex items-center justify-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-[#00e0b3] shadow-sm shadow-[#00e0b3]/50"></span>
+          <span>Liin 8</span>
         </button>
-        <button id="filter-8a" onclick="setLineFilter('8A')" class="flex-1 py-1.5 px-3 rounded-lg transition text-slate-400 hover:text-slate-200 font-semibold">
-          Liin 8A
+        <button id="filter-8a" onclick="setLineFilter('8A')" class="py-2 px-2.5 sm:px-3 rounded-xl transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-800/50 border border-transparent flex items-center justify-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-sky-500 shadow-sm shadow-sky-500/50"></span>
+          <span>Liin 8A</span>
         </button>
       </nav>
 
@@ -164,19 +166,19 @@
       <!-- Jalus: Uuendamise info ja nupud -->
       <footer class="mt-6 pt-5 border-t border-slate-800/80 flex items-center justify-between gap-2 text-xs text-slate-400">
         <div class="flex items-center gap-1.5 sm:gap-2">
-          <!-- Värskenda (ainult ikoon) -->
-          <button id="refresh-btn" onclick="manualRefresh()" title="Värskenda kohe" class="p-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition active:scale-95 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-emerald-500/40 flex-shrink-0">
-            <svg id="refresh-icon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-            </svg>
-          </button>
-
           <!-- Paigalda äpp (mobiilis ainult ikoon, suuremal ekraanil ka tekst) -->
           <button id="pwa-install-btn" class="hidden items-center gap-1.5 p-1.5 sm:px-2.5 sm:py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-semibold transition active:scale-95 flex-shrink-0" title="Paigalda rakendus seadmesse">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
             <span class="hidden sm:inline">Paigalda</span>
+          </button>
+
+          <!-- Värskenda (ainult ikoon) -->
+          <button id="refresh-btn" onclick="manualRefresh()" title="Värskenda kohe" class="p-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition active:scale-95 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-emerald-500/40 flex-shrink-0">
+            <svg id="refresh-icon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
           </button>
 
           <span class="whitespace-nowrap">Uuendatud: <span id="last-updated" class="font-mono text-slate-300 font-semibold">--:--:--</span></span>
@@ -236,25 +238,29 @@
       const btn8A = document.getElementById('filter-8a');
       const destEl = document.getElementById('route-destination');
 
-      const activeClasses = ['text-white', 'bg-slate-800', 'shadow', 'font-semibold'];
-      const inactiveClasses = ['text-slate-400', 'hover:text-slate-200'];
+      const baseInactive = ['text-slate-300', 'hover:text-white', 'hover:bg-slate-800/50', 'border-transparent'];
+      const activeAllClasses = ['text-white', 'bg-slate-800', 'border-slate-600/80', 'shadow-md', 'font-bold'];
+      const active8Classes = ['text-[#00e0b3]', 'bg-[#00e0b3]/15', 'border-[#00e0b3]/50', 'shadow-md', 'shadow-[#00e0b3]/10', 'font-bold'];
+      const active8AClasses = ['text-sky-300', 'bg-sky-500/15', 'border-sky-500/50', 'shadow-md', 'shadow-sky-500/10', 'font-bold'];
+
+      const allDynamicClasses = [...baseInactive, ...activeAllClasses, ...active8Classes, ...active8AClasses];
 
       [btnAll, btn8, btn8A].forEach(btn => {
-        btn.classList.remove(...activeClasses);
-        btn.classList.add(...inactiveClasses);
+        btn.classList.remove(...allDynamicClasses);
+        btn.classList.add(...baseInactive);
       });
 
       if (filter === '8') {
-        btn8.classList.add(...activeClasses);
-        btn8.classList.remove(...inactiveClasses);
+        btn8.classList.remove(...baseInactive);
+        btn8.classList.add(...active8Classes);
         destEl.textContent = 'Väike-Õismäe';
       } else if (filter === '8A') {
-        btn8A.classList.add(...activeClasses);
-        btn8A.classList.remove(...inactiveClasses);
+        btn8A.classList.remove(...baseInactive);
+        btn8A.classList.add(...active8AClasses);
         destEl.textContent = 'Viru keskus';
       } else {
-        btnAll.classList.add(...activeClasses);
-        btnAll.classList.remove(...inactiveClasses);
+        btnAll.classList.remove(...baseInactive);
+        btnAll.classList.add(...activeAllClasses);
         destEl.textContent = 'Väike-Õismäe / Viru keskus';
       }
 
