@@ -150,33 +150,80 @@
     <div class="glass-card rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden transition-all duration-300">
 
       <!-- Päis: Liini info & reaalaja staatus -->
-      <header class="flex items-center justify-between gap-2.5 sm:gap-4 pb-4 sm:pb-5 border-b border-slate-800/80">
+      <header class="flex items-center justify-between gap-2 sm:gap-4 pb-4 sm:pb-5 border-b border-slate-800/80">
         <div class="flex items-center gap-2.5 sm:gap-3.5 min-w-0 flex-1">
-          <!-- Bussi numbrite märgid -->
-          <div class="flex items-center -space-x-2 flex-shrink-0" role="img" aria-label="Liinid 8 ja 8A">
-            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#00e0b3] flex items-center justify-center shadow-lg shadow-[#00e0b3]/25 border border-white/30 ring-2 ring-slate-950 z-10">
-              <span class="font-extrabold text-xl sm:text-2xl text-slate-950 tracking-tight">8</span>
-            </div>
-            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-sky-500 flex items-center justify-center shadow-lg shadow-sky-500/25 border border-white/30 ring-2 ring-slate-950">
-              <span class="font-extrabold text-lg sm:text-xl text-slate-950 tracking-tight">8A</span>
-            </div>
-          </div>
+          <!-- Bussiajad logo -->
+          <img src="favicon.svg" alt="Bussiajad logo" class="w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0 drop-shadow-md" width="48" height="48">
           <div class="min-w-0 flex-1">
             <div class="flex items-center gap-2">
               <h1 class="text-lg sm:text-2xl font-bold tracking-tight text-white truncate">
                 Oblika tee
               </h1>
             </div>
-            <p id="route-subtitle" class="text-xs text-slate-400 font-medium tracking-wide flex items-center gap-1 mt-0.5 min-h-[1.25rem] whitespace-nowrap overflow-hidden">
-              <span id="route-origin" class="text-slate-400 flex-shrink-0">Äigrumäe</span>
-              <span class="sr-only"> suunaga </span>
-              <svg class="w-3 h-3 text-slate-500 inline flex-shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            <p id="route-subtitle" class="text-xs text-slate-400 font-medium tracking-wide flex items-center gap-1.5 mt-0.5 min-h-[1.25rem] whitespace-nowrap overflow-hidden">
+              <svg class="w-3.5 h-3.5 text-slate-500 inline flex-shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
               <span id="route-dest-container" tabindex="0" class="min-w-0 flex-1 overflow-hidden relative inline-flex items-center focus:outline-none focus:ring-1 focus:ring-slate-500/50 rounded" title="Väike-Õismäe / Viru keskus">
                 <span id="route-dest-track" class="inline-flex items-center whitespace-nowrap">
                   <span id="route-destination" class="text-slate-300 font-semibold whitespace-nowrap inline-block">Väike-Õismäe / Viru keskus</span>
                 </span>
               </span>
             </p>
+          </div>
+        </div>
+
+        <!-- Suuna valik (Kohandatud tumeda stiiliga Drop-down menüü) -->
+        <div class="flex-shrink-0 flex items-center gap-1.5 pl-1 relative" id="direction-dropdown-container">
+          <span class="text-xs font-semibold text-slate-400 sr-only sm:not-sr-only sm:inline" id="direction-label-text">Suund:</span>
+          <div class="relative">
+            <button
+              id="direction-btn"
+              type="button"
+              onclick="toggleDirectionDropdown()"
+              aria-haspopup="listbox"
+              aria-expanded="false"
+              aria-labelledby="direction-label-text direction-btn-text"
+              class="inline-flex items-center justify-between gap-1.5 sm:gap-2 bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700/80 hover:border-slate-600 rounded-xl px-2.5 sm:px-3 py-1.5 text-xs sm:text-[13px] font-semibold transition shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/50 cursor-pointer select-none"
+            >
+              <span id="direction-btn-text">Pirita</span>
+              <svg id="direction-chevron" class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            <!-- Tume klaasjas valikute rippaken (vastab lehe Glassmorphism disainile) -->
+            <div
+              id="direction-menu"
+              role="listbox"
+              aria-label="Vali suund"
+              class="hidden absolute right-0 mt-1.5 min-w-[130px] sm:min-w-[140px] bg-slate-900/95 backdrop-blur-xl border border-slate-700/80 rounded-2xl shadow-2xl p-1 z-50 text-xs sm:text-[13px] font-semibold space-y-0.5"
+            >
+              <button
+                type="button"
+                role="option"
+                id="dir-opt-pirita"
+                aria-selected="true"
+                onclick="selectDirection('pirita')"
+                class="w-full text-left px-3 py-2 rounded-xl flex items-center justify-between transition-colors bg-emerald-500/15 text-emerald-400 font-bold border border-emerald-500/20"
+              >
+                <span>Pirita</span>
+                <svg id="dir-check-pirita" class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                role="option"
+                id="dir-opt-aigrumae"
+                aria-selected="false"
+                onclick="selectDirection('aigrumae')"
+                class="w-full text-left px-3 py-2 rounded-xl flex items-center justify-between transition-colors text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent"
+              >
+                <span>Äigrumäe</span>
+                <svg id="dir-check-aigrumae" class="hidden w-3.5 h-3.5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -222,11 +269,14 @@
       <footer class="mt-6 pt-5 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-y-2.5 gap-x-2 text-xs text-slate-400">
         <div class="flex items-center gap-1.5 sm:gap-2">
           <!-- Paigalda äpp (ainult ikoon seadmesse paigaldamiseks) -->
-          <button id="pwa-install-btn" class="hidden items-center justify-center p-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-semibold transition active:scale-95 flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-emerald-500/40" title="Paigalda rakendus seadmesse" aria-label="Paigalda rakendus seadmesse">
+          <button id="pwa-install-btn" class="hidden items-center justify-center px-2 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-semibold transition active:scale-95 flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-emerald-500/40" title="Paigalda rakendus seadmesse" aria-label="Paigalda rakendus seadmesse">
             <svg class="w-3.5 h-3.5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
           </button>
+
+          <!-- Viimati uuendatud aeg -->
+          <span id="last-updated" class="font-mono text-slate-300 font-semibold whitespace-nowrap">--:--:--</span>
 
           <!-- Värskenda kohe nupp koos sekundiloenduriga -->
           <button id="refresh-btn" onclick="manualRefresh()" title="Värskenda väljumisi kohe" aria-label="Värskenda väljumisi kohe" class="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition active:scale-95 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 flex-shrink-0">
@@ -235,8 +285,6 @@
             </svg>
             <span id="countdown-badge" class="font-mono text-[11px] text-slate-400">15s</span>
           </button>
-
-          <span id="last-updated" class="font-mono text-slate-300 font-semibold whitespace-nowrap">--:--:--</span>
         </div>
 
         <div class="flex items-center gap-2.5 sm:gap-3 text-slate-400 flex-shrink-0">
@@ -247,7 +295,7 @@
             </svg>
             <span class="relative inline-flex items-center">
               <input type="checkbox" id="walk-toggle" role="switch" aria-label="Liikuma hakkamise aeg" class="sr-only peer" onchange="toggleWalkTime(this.checked)">
-              <span class="walk-switch-track w-7 h-4 bg-slate-700/90 peer-checked:bg-orange-500 rounded-full block shadow-inner"></span>
+              <span class="walk-switch-track w-7 h-4 bg-slate-700/90 peer-checked:bg-orange-500 rounded-full block shadow-inner peer-focus-visible:ring-2 peer-focus-visible:ring-orange-400 peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-slate-900"></span>
               <span class="walk-switch-thumb absolute left-0.5 top-0.5 w-3 h-3 bg-white rounded-full pointer-events-none shadow peer-checked:translate-x-3"></span>
             </span>
           </label>
@@ -258,9 +306,9 @@
             <svg class="w-3.5 h-3.5 text-slate-400" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            <a href="https://transport.tallinn.ee/#bus/8/b-a/19001-1" target="_blank" rel="noopener noreferrer" aria-label="Liini 8 ametlik sõiduplaan" class="hover:text-emerald-400 font-semibold underline underline-offset-4 decoration-slate-700 hover:decoration-emerald-400 transition">8</a>
+            <a id="schedule-link-8" href="https://transport.tallinn.ee/#bus/8/b-a/19001-1" target="_blank" rel="noopener noreferrer" aria-label="Liini 8 ametlik sõiduplaan" class="hover:text-emerald-400 font-semibold underline underline-offset-4 decoration-slate-700 hover:decoration-emerald-400 transition">8</a>
             <span class="text-slate-600" aria-hidden="true">·</span>
-            <a href="https://transport.tallinn.ee/#bus/8a/b-a/19001-1" target="_blank" rel="noopener noreferrer" aria-label="Liini 8A ametlik sõiduplaan" class="hover:text-sky-400 font-semibold underline underline-offset-4 decoration-slate-700 hover:decoration-sky-400 transition">8A</a>
+            <a id="schedule-link-8a" href="https://transport.tallinn.ee/#bus/8a/b-a/19001-1" target="_blank" rel="noopener noreferrer" aria-label="Liini 8A ametlik sõiduplaan" class="hover:text-sky-400 font-semibold underline underline-offset-4 decoration-slate-700 hover:decoration-sky-400 transition">8A</a>
           </div>
         </div>
       </footer>
@@ -271,25 +319,74 @@
 
   <!-- Staatiline brauseri JavaScript (otsepäring transport.tallinn.ee SIRI andmevoost) -->
   <script>
-    const STOP_ID = '1579'; // Oblika tee (kood: 19001-1 / SIRI id: 1579)
     const ALLOWED_BUSES = ['8', '8A'];
-    const BUS_DEFAULTS = {
-      '8': { destination: 'Väike-Õismäe', route: 'Äigrumäe - Väike-Õismäe' },
-      '8A': { destination: 'Viru keskus', route: 'Äigrumäe - Viru keskus' }
-    };
-    const BUS_MAPS = {
-      '8': 'https://transport.tallinn.ee/#bus/8/b-a/19001-1/map',
-      '8A': 'https://transport.tallinn.ee/#bus/8a/b-a/19001-1/map'
-    };
-    const SIRI_URL = `https://transport.tallinn.ee/siri-stop-departures.php?stopid=${STOP_ID}`;
     const UPDATE_INTERVAL = 15; // sekundit
 
+    const DIRECTIONS = {
+      pirita: {
+        name: 'Pirita',
+        stopId: '1579', // Oblika tee suunaga Pirita / linn (kood: 19001-1)
+        stopCode: '19001-1',
+        origin: {
+          all: 'Äigrumäe',
+          '8': 'Äigrumäe',
+          '8A': 'Äigrumäe'
+        },
+        destination: {
+          all: 'Väike-Õismäe / Viru keskus',
+          '8': 'Väike-Õismäe',
+          '8A': 'Viru keskus'
+        },
+        busDefaults: {
+          '8': { destination: 'Väike-Õismäe' },
+          '8A': { destination: 'Viru keskus' }
+        },
+        busMaps: {
+          '8': 'https://transport.tallinn.ee/#bus/8/b-a/19001-1/map',
+          '8A': 'https://transport.tallinn.ee/#bus/8a/b-a/19001-1/map'
+        },
+        busSchedules: {
+          '8': 'https://transport.tallinn.ee/#bus/8/b-a/19001-1',
+          '8A': 'https://transport.tallinn.ee/#bus/8a/b-a/19001-1'
+        }
+      },
+      aigrumae: {
+        name: 'Äigrumäe',
+        stopId: '1580', // Oblika tee suunaga Äigrumäe (kood: 19002-1)
+        stopCode: '19002-1',
+        origin: {
+          all: 'Väike-Õismäe / Viru keskus',
+          '8': 'Väike-Õismäe',
+          '8A': 'Viru keskus'
+        },
+        destination: {
+          all: 'Äigrumäe',
+          '8': 'Äigrumäe',
+          '8A': 'Äigrumäe'
+        },
+        busDefaults: {
+          '8': { destination: 'Äigrumäe' },
+          '8A': { destination: 'Äigrumäe' }
+        },
+        busMaps: {
+          '8': 'https://transport.tallinn.ee/#bus/8/a-b/19002-1/map',
+          '8A': 'https://transport.tallinn.ee/#bus/8a/a-b/19002-1/map'
+        },
+        busSchedules: {
+          '8': 'https://transport.tallinn.ee/#bus/8/a-b/19002-1',
+          '8A': 'https://transport.tallinn.ee/#bus/8a/a-b/19002-1'
+        }
+      }
+    };
+
+    let activeDirection = 'pirita'; // 'pirita' või 'aigrumae'
+    let activeFilter = 'all'; // 'all', '8', '8A'
+    let activeFetchController = null;
     let secondsUntilRefresh = UPDATE_INTERVAL;
     let refreshTimer = null;
     let countdownTimer = null;
     let isFetching = false;
     let isWalkEnabled = false;
-    let activeFilter = 'all'; // 'all', '8', '8A'
     let lastFetchedDepartures = [];
     let lastUpdatedTime = '--:--:--';
     let lastFetchTimestamp = 0;
@@ -310,6 +407,153 @@
         return `<span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-lg bg-sky-500 text-slate-950 font-black text-sm tracking-tight shadow-sm">8A</span>`;
       }
       return `<span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-lg bg-[#00e0b3] text-slate-950 font-black text-sm tracking-tight shadow-sm">8</span>`;
+    }
+
+    function updateRouteHeader() {
+      const destEl = document.getElementById('route-destination');
+      if (!destEl) return;
+
+      const dirConfig = DIRECTIONS[activeDirection] || DIRECTIONS.pirita;
+      const destText = dirConfig.destination[activeFilter] || dirConfig.destination.all;
+
+      destEl.textContent = destText;
+      destEl.setAttribute('title', destText);
+
+      updateDestinationMarquee();
+    }
+
+    function toggleDirectionDropdown(force) {
+      const menu = document.getElementById('direction-menu');
+      const btn = document.getElementById('direction-btn');
+      const chevron = document.getElementById('direction-chevron');
+      if (!menu || !btn) return;
+
+      const isHidden = menu.classList.contains('hidden');
+      const shouldOpen = force !== undefined ? force : isHidden;
+
+      if (shouldOpen) {
+        menu.classList.remove('hidden');
+        btn.setAttribute('aria-expanded', 'true');
+        if (chevron) chevron.classList.add('rotate-180');
+      } else {
+        menu.classList.add('hidden');
+        btn.setAttribute('aria-expanded', 'false');
+        if (chevron) chevron.classList.remove('rotate-180');
+      }
+    }
+
+    function closeDirectionDropdown() {
+      toggleDirectionDropdown(false);
+    }
+
+    function selectDirection(dir) {
+      closeDirectionDropdown();
+      setDirection(dir);
+      const btn = document.getElementById('direction-btn');
+      if (btn) btn.focus();
+    }
+
+    function updateFooterSchedules() {
+      const dirConfig = DIRECTIONS[activeDirection] || DIRECTIONS.pirita;
+      const link8 = document.getElementById('schedule-link-8');
+      const link8A = document.getElementById('schedule-link-8a');
+      if (link8) link8.href = dirConfig.busSchedules['8'];
+      if (link8A) link8A.href = dirConfig.busSchedules['8A'];
+    }
+
+    function setDirection(dir, updateHistory = true) {
+      if (dir !== 'pirita' && dir !== 'aigrumae') {
+        dir = 'pirita';
+      }
+      activeDirection = dir;
+
+      // Uuenda kohandatud rippmenüü nuppu ja valikute olekut
+      const btnText = document.getElementById('direction-btn-text');
+      if (btnText) {
+        btnText.textContent = DIRECTIONS[dir].name;
+      }
+
+      const optPirita = document.getElementById('dir-opt-pirita');
+      const optAigrumae = document.getElementById('dir-opt-aigrumae');
+      const checkPirita = document.getElementById('dir-check-pirita');
+      const checkAigrumae = document.getElementById('dir-check-aigrumae');
+
+      const activeClasses = ['bg-emerald-500/15', 'text-emerald-400', 'font-bold', 'border-emerald-500/20'];
+      const inactiveClasses = ['text-slate-300', 'hover:text-white', 'hover:bg-slate-800/80', 'border-transparent'];
+
+      if (dir === 'pirita') {
+        if (optPirita) {
+          optPirita.classList.remove(...inactiveClasses);
+          optPirita.classList.add(...activeClasses);
+          optPirita.setAttribute('aria-selected', 'true');
+        }
+        if (checkPirita) checkPirita.classList.remove('hidden');
+
+        if (optAigrumae) {
+          optAigrumae.classList.remove(...activeClasses);
+          optAigrumae.classList.add(...inactiveClasses);
+          optAigrumae.setAttribute('aria-selected', 'false');
+        }
+        if (checkAigrumae) checkAigrumae.classList.add('hidden');
+      } else {
+        if (optAigrumae) {
+          optAigrumae.classList.remove(...inactiveClasses);
+          optAigrumae.classList.add(...activeClasses);
+          optAigrumae.setAttribute('aria-selected', 'true');
+        }
+        if (checkAigrumae) checkAigrumae.classList.remove('hidden');
+
+        if (optPirita) {
+          optPirita.classList.remove(...activeClasses);
+          optPirita.classList.add(...inactiveClasses);
+          optPirita.setAttribute('aria-selected', 'false');
+        }
+        if (checkPirita) checkPirita.classList.add('hidden');
+      }
+
+      if (activeFetchController) {
+        activeFetchController.abort();
+        activeFetchController = null;
+      }
+      isFetching = false;
+
+      try {
+        localStorage.setItem('bussiajad_direction', dir);
+      } catch (e) {
+        console.warn('LocalStorage viga:', e);
+      }
+
+      if (updateHistory) {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('direction');
+        if (dir === 'pirita') {
+          url.searchParams.delete('dir');
+        } else {
+          url.searchParams.set('dir', dir);
+        }
+        window.history.replaceState(null, '', url.toString());
+      }
+
+      updateRouteHeader();
+      updateFooterSchedules();
+
+      // Kuva laadimisskelett uue suuna laadimisel
+      const wrapper = document.getElementById('cards-wrapper');
+      const emptyState = document.getElementById('empty-state');
+      if (emptyState) emptyState.classList.add('hidden');
+      if (wrapper) {
+        wrapper.innerHTML = `
+          <div class="animate-pulse space-y-3.5">
+            <div class="h-28 bg-slate-800/50 rounded-2xl"></div>
+            <div class="h-20 bg-slate-800/30 rounded-2xl"></div>
+          </div>
+        `;
+      }
+
+      lastFetchedDepartures = [];
+      fetchDepartures();
+      resetRefreshCycle();
+      startCountdown();
     }
 
     // Päise sihtkoha skrollimise loogika (kui sihtkoht pärast ">" märki ei mahu ära, skrolli rahulikult paremalt vasakule)
@@ -363,7 +607,6 @@
       const btnAll = document.getElementById('filter-all');
       const btn8 = document.getElementById('filter-8');
       const btn8A = document.getElementById('filter-8a');
-      const destEl = document.getElementById('route-destination');
 
       if (btnAll) btnAll.setAttribute('aria-selected', filter === 'all' ? 'true' : 'false');
       if (btn8) btn8.setAttribute('aria-selected', filter === '8' ? 'true' : 'false');
@@ -395,19 +638,18 @@
       if (filter === '8') {
         btn8.classList.remove(...baseInactive);
         btn8.classList.add(...active8Classes);
-        destEl.textContent = 'Väike-Õismäe';
       } else if (filter === '8A') {
         btn8A.classList.remove(...baseInactive);
         btn8A.classList.add(...active8AClasses);
-        destEl.textContent = 'Viru keskus';
       } else {
         btnAll.classList.remove(...baseInactive);
         btnAll.classList.add(...activeAllClasses);
-        destEl.textContent = 'Väike-Õismäe / Viru keskus';
       }
 
-      updateDestinationMarquee();
-      renderUI(lastFetchedDepartures);
+      updateRouteHeader();
+      if (lastFetchTimestamp > 0 || lastFetchedDepartures.length > 0) {
+        renderUI(lastFetchedDepartures);
+      }
     }
 
     // Teisendab sekundid alates südaööst formaati HH:MM (toetab normaliseeritult ka südaöö ületust)
@@ -440,14 +682,19 @@
       if (isFetching) return;
       isFetching = true;
 
+      const currentDirection = activeDirection;
       const controller = new AbortController();
+      activeFetchController = controller;
       const timeoutId = setTimeout(() => controller.abort(), 8000); // 8s timeout
 
       const refreshIcon = document.getElementById('refresh-icon');
       if (refreshIcon) refreshIcon.classList.add('animate-spin');
 
+      const dirConfig = DIRECTIONS[activeDirection] || DIRECTIONS.pirita;
+      const siriUrl = `https://transport.tallinn.ee/siri-stop-departures.php?stopid=${dirConfig.stopId}`;
+
       try {
-        const response = await fetch(SIRI_URL, { 
+        const response = await fetch(siriUrl, { 
           cache: 'no-store',
           signal: controller.signal 
         });
@@ -456,6 +703,12 @@
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         
         const text = await response.text();
+
+        // Kui suunda vahetati aktiivse päringu ajal, ignoreeri aegunud vastust
+        if (currentDirection !== activeDirection) {
+          return;
+        }
+
         const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
 
         const departures = [];
@@ -470,7 +723,7 @@
             if (transportType === 'bus' && ALLOWED_BUSES.includes(routeNum)) {
               const expectedSec = parseInt(parts[2], 10);
               const schedSec = parseInt(parts[3], 10);
-              const defaultDest = BUS_DEFAULTS[routeNum]?.destination || 'Tallinn';
+              const defaultDest = dirConfig.busDefaults[routeNum]?.destination || 'Tallinn';
               const rawDest = parts[4] ? parts[4].trim() : '';
               const destination = escapeHtml(rawDest || defaultDest);
               const remainingSec = parseInt(parts[5], 10);
@@ -527,12 +780,19 @@
 
       } catch (err) {
         clearTimeout(timeoutId);
+        // Kui päring tühistati suunavahetuse tõttu, ignoreeri ja ära kuva veateadet
+        if (err.name === 'AbortError' && currentDirection !== activeDirection) {
+          return;
+        }
         console.error('Viga andmete pärimisel:', err);
         const errorMsg = err.name === 'AbortError'
           ? 'Päring aegus (server ei vasta).'
           : (!navigator.onLine ? 'Internetiühendus puudub (offline).' : 'Andmeühenduse tõrge transport.tallinn.ee serveriga.');
         renderError(errorMsg);
       } finally {
+        if (activeFetchController === controller) {
+          activeFetchController = null;
+        }
         isFetching = false;
         if (refreshIcon) refreshIcon.classList.remove('animate-spin');
         secondsUntilRefresh = UPDATE_INTERVAL;
@@ -560,7 +820,9 @@
         
         if (activeFilter === '8A') {
           emptyMessage.textContent = 'Liinil 8A hetkel väljumisi ei ole.';
-          emptySubmessage.textContent = 'Buss 8A sõidab peamiselt tööpäeviti tipptundidel (Äigrumäe → Viru keskus).';
+          emptySubmessage.textContent = activeDirection === 'aigrumae'
+            ? 'Buss 8A sõidab peamiselt tööpäeviti tipptundidel (Viru keskus → Äigrumäe).'
+            : 'Buss 8A sõidab peamiselt tööpäeviti tipptundidel (Äigrumäe → Viru keskus).';
         } else if (activeFilter === '8') {
           emptyMessage.textContent = 'Liinil 8 hetkel väljumisi ei leitud.';
           emptySubmessage.textContent = 'Bussiliin võib olla öisel puhkeajal või andmed uuenevad.';
@@ -576,10 +838,13 @@
 
       let html = '';
 
-      departures.slice(0, 4).forEach((dep, index) => {
+      departures.slice(0, 3).forEach((dep, index) => {
         const isFirst = index === 0;
         const isImminent = dep.remainingMinutes <= 2;
-        const mapUrl = BUS_MAPS[dep.line] || `https://transport.tallinn.ee/#bus/${dep.line.toLowerCase()}/b-a/19001-1/map`;
+        const dirConfig = DIRECTIONS[activeDirection] || DIRECTIONS.pirita;
+        const mapUrl = dirConfig.busMaps[dep.line] || (activeDirection === 'aigrumae'
+          ? `https://transport.tallinn.ee/#bus/${dep.line.toLowerCase()}/a-b/19002-1/map`
+          : `https://transport.tallinn.ee/#bus/${dep.line.toLowerCase()}/b-a/19001-1/map`);
         const delayBadge = dep.delayMinutes !== 0 
           ? `<span class="text-xs px-2 py-0.5 rounded-full ${dep.delayMinutes > 0 ? 'bg-amber-950/60 text-amber-300 border border-amber-500/30' : 'bg-blue-950/60 text-blue-300 border border-blue-500/30'}">${escapeHtml(dep.delayText)}</span>`
           : `<span class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">Graafikus</span>`;
@@ -862,7 +1127,7 @@
     }
 
     function startApp() {
-      // Laadi liikuma hakkamise slaideri olek vahemälust
+      // 1. Laadi liikuma hakkamise slaideri olek vahemälust
       try {
         isWalkEnabled = localStorage.getItem('bussiajad_walk_enabled') === 'true';
       } catch (e) {
@@ -870,16 +1135,38 @@
       }
       updateWalkToggleUI();
 
-      // Kontrolli URL parameetrit (nt ?filter=8 või ?filter=8A PWA otseteede jaoks)
+      // 2. Kontrolli URL parameetreid ja salvestatud eelistusi
       const urlParams = new URLSearchParams(window.location.search);
+
+      // Suund: ?dir=aigrumae -> localStorage -> vaikimisi 'pirita'
+      const dirParam = urlParams.get('dir') || urlParams.get('direction');
+      let initialDirection = 'pirita';
+      if (dirParam && (dirParam.toLowerCase() === 'aigrumae' || dirParam.toLowerCase() === 'äigrumäe')) {
+        initialDirection = 'aigrumae';
+      } else {
+        try {
+          const savedDir = localStorage.getItem('bussiajad_direction');
+          if (savedDir === 'aigrumae') {
+            initialDirection = 'aigrumae';
+          }
+        } catch (e) {
+          console.warn('LocalStorage viga:', e);
+        }
+      }
+
+      // Liinifilter: ?filter=8 või ?filter=8A
       const filterParam = urlParams.get('filter');
       if (filterParam) {
         const normalized = filterParam.toUpperCase();
         if (normalized === '8' || normalized === '8A') {
-          setLineFilter(normalized, false);
+          activeFilter = normalized;
         }
-      } else {
-        updateDestinationMarquee();
+      }
+
+      // Rakenda algne suund ja liinifilter ilma brauseri ajalugu risustamata
+      setDirection(initialDirection, false);
+      if (activeFilter !== 'all') {
+        setLineFilter(activeFilter, false);
       }
 
       // Jälgi sihtkoha konteineri laiust (akna suuruse muutus, ekraani pööramine jne)
@@ -915,9 +1202,32 @@
       initPWA();
       document.addEventListener('visibilitychange', handleVisibilityChange);
 
-      fetchDepartures();
-      resetRefreshCycle();
-      startCountdown();
+      // Sulge suuna rippmenüü väljapoole klikates
+      document.addEventListener('click', (e) => {
+        const container = document.getElementById('direction-dropdown-container');
+        if (container && !container.contains(e.target)) {
+          closeDirectionDropdown();
+        }
+      });
+
+      // Sulge suuna rippmenüü Escape klahviga
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeDirectionDropdown();
+          const btn = document.getElementById('direction-btn');
+          if (btn) btn.focus();
+        }
+      });
+
+      // Sulge suuna rippmenüü kui fookus liigub klaviatuuriga konteinerist välja
+      const dirContainer = document.getElementById('direction-dropdown-container');
+      if (dirContainer) {
+        dirContainer.addEventListener('focusout', (e) => {
+          if (!dirContainer.contains(e.relatedTarget)) {
+            closeDirectionDropdown();
+          }
+        });
+      }
     }
 
     window.addEventListener('DOMContentLoaded', startApp);

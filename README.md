@@ -3,25 +3,31 @@
   Bussiajad
 </h1>
 
-Veebirakendus, mis kuvab Tallinna busside nr **8** ja **8A** järgmised reaalajas väljumisajad peatusest **Oblika tee** (suunaga Väike-Õismäe ja Viru keskuse poole).
+Veebirakendus, mis kuvab Tallinna busside nr **8** ja **8A** reaalajas väljumisajad peatusest **Oblika tee** mõlemas sõidusuunas (**Pirita** ja **Äigrumäe**).
 
 ---
 
 ## Peamised funktsioonid
 
-- **Reaalajas väljumised (8 & 8A):** Kuvab järgmiste busside saabumiskellaajad ning mitu minutit on bussini jäänud.
-- **Liikuma hakkamise teavitus:** Jaluses olevast slaiderist (kõnni ikooniga) sisse lülitatav meeldetuletus oranžikas toonis "Hakka liikuma" 4 minutit enne väljumist, või punakas soovitus "Oota järgmist bussi", kui aega peatusesse kõndimiseks napib.
-- **Liinifilter:** Võimalus vaadata kõiki väljumisi korraga või filtreerida eraldi liini 8 (Väike-Õismäe) ja 8A (Viru keskus).
-- **Automaatne uuendus ja loendur:** Andmed uuenevad automaatselt iga 15 sekundi järel; värskendamise nupul kuvatakse jooksvat sekundiloendurit koos viimase uuenduse kellaajaga.
-- **Graafikupõhine info:** Näitab bussi tegelikku saabumisaega ja hälvet võrreldes ametliku graafikuga.
-- **Silmasõbralik tume disain:** Kaasaegne klaasjas tume välimus (Glassmorphism), mis on optimeeritud nii mobiilile kui ka suurematele ekraanidele.
-- **PWA (Progressive Web App) tugi:** Paigaldatav telefonisse ja arvutisse nagu päris äpp (koduekraani otseteed, võrguühenduseta kest, automaatne vahemälu).
-- **Reaalajas kaardijälgimine:** Otseteed ja kaardinupud busside 8 ja 8A asukoha ja marsruudi vaatamiseks reaalajas kaardil.
-- **Otseteed sõiduplaanidele:** Kiirlingid ametlikele Tallinna transpordi sõiduplaanidele (ikooniga `8 · 8A`).
+- **Suuna valik (Pirita & Äigrumäe):** Päises asuv rippmenüü võimaldab mugavalt vahetada peatuse suunda:
+  - **Pirita**: suunaga Väike-Õismäe / Viru keskus.
+  - **Äigrumäe**: suunaga Äigrumäe.
+- **Reaalajas väljumised (kuni 3 väljumist):** Kuvab kuni 3 järgmise bussi saabumiskellaajad (`HH:MM`), järelejäänud aja ("Nüüd" või "X min") ning graafikuhälbe nii koond- kui ka liinipõhises vaates.
+- **Dünaamiline sihtkoha info:** Peatuse nime all kuvatakse aktiivse liinifiltri ja suuna sihtkoht.
+- **Liikuma hakkamise meeldetuletus:** Jaluses olevast lülitist sisselülitatav teavitus:
+  - Oranžikas toonis `Hakka liikuma HH:MM` (4 minutit enne bussi väljumist).
+  - Punakas hoiatus `Oota järgmist bussi`, kui peatusesse kõndimiseks aega napib (alla 4 minuti).
+- **Liinifilter:** Vahelehed liinide vahel valimiseks (`Liinid 8 & 8A`, `Liin 8`, `Liin 8A`), toetades ka otseteed URL-i parameetriga.
+- **Automaatne uuendus ja loendur:** Andmed uuenevad automaatselt iga 15 sekundi järel; jaluses kuvatakse viimase uuenduse kellaaega (`HH:MM:SS`) ja sekundiloenduriga käsitsi värskenduse nuppu.
+- **Graafikupõhine info:** Näitab bussi prognoositavat saabumisaega, hilinemist/ennatlikkust ja läbikriipsutatud plaanilist aega.
+- **Silmasõbralik tume disain:** Kaasaegne klaasjas tume välimus (Glassmorphism), optimeeritud nii nutitelefonidele kui ka seinaekraanidele ja infotahvlitele.
+- **PWA (Progressive Web App) tugi:** Paigaldatav rakendusena koduekraanile või arvutisse (võrguühenduseta kest, koduekraani otseteed, automaatne vahemälu).
+- **Reaalajas kaardijälgimine:** Otseteed ja kaardinupud busside asukoha reaalajas jälgimiseks kaardil vastavalt valitud sõidusuunale.
+- **Otseteed sõiduplaanidele:** Jaluses olevad kiirlingid valitud suuna ametlikele sõiduplaanidele (`8 · 8A`).
 
 ---
 
 ## Andmeallikas
 
-Rakendus kuvab reaalaja andmeid otse Tallinna Transpordiameti ametlikust andmevoost (`transport.tallinn.ee`).
+Rakendus kuvab reaalaja andmeid otse Tallinna Transpordiameti ametlikust SIRI andmevoost (`transport.tallinn.ee`).
 
