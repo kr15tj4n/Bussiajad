@@ -3,7 +3,7 @@
   Bussiajad
 </h1>
 
-Veebirakendus, mis kuvab Tallinna busside nr **8**, **8A** ja **48** reaalajas väljumisajad peatusest **Oblika tee** mõlemas sõidusuunas (**> Pirita** ja **> Äigrumäe**).
+Veebirakendus, mis kuvab Tallinna busside nr **8**, **8A** ja **48** reaalajas väljumisajad peatusest **Oblika tee** mõlemas sõidusuunas (**Pirita** ja **Äigrumäe**).
 
 ---
 

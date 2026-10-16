@@ -176,10 +176,10 @@
               aria-expanded="false"
               aria-controls="direction-menu"
               aria-label="Vali suund"
-              class="inline-flex items-center justify-between gap-1.5 sm:gap-2 bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700/80 hover:border-slate-600 rounded-xl px-2.5 sm:px-3 py-1.5 text-xs sm:text-[13px] font-semibold transition shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/50 cursor-pointer select-none"
+              class="w-[92px] sm:w-[106px] inline-flex items-center justify-between gap-1.5 bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700/80 hover:border-slate-600 rounded-xl px-2.5 py-2 text-[11px] sm:text-[13px] font-semibold transition shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/50 cursor-pointer select-none whitespace-nowrap"
             >
-              <span id="direction-btn-text">&gt; Pirita</span>
-              <svg id="direction-chevron" class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <span id="direction-btn-text">Pirita</span>
+              <svg id="direction-chevron" class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
@@ -199,7 +199,7 @@
                 onclick="selectDirection('pirita')"
                 class="w-full text-left px-3 py-2 rounded-xl flex items-center justify-between transition-colors bg-emerald-500/15 text-emerald-400 font-bold border border-emerald-500/20"
               >
-                <span>&gt; Pirita</span>
+                <span>Pirita</span>
                 <svg id="dir-check-pirita" class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                 </svg>
@@ -212,7 +212,7 @@
                 onclick="selectDirection('aigrumae')"
                 class="w-full text-left px-3 py-2 rounded-xl flex items-center justify-between transition-colors text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent"
               >
-                <span>&gt; Äigrumäe</span>
+                <span>Äigrumäe</span>
                 <svg id="dir-check-aigrumae" class="hidden w-3.5 h-3.5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                 </svg>
@@ -324,7 +324,7 @@
 
     const DIRECTIONS = {
       pirita: {
-        name: '> Pirita',
+        name: 'Pirita',
         stopId: '1579', // Oblika tee suunaga Pirita / linn (kood: 19001-1)
         stopCode: '19001-1',
         destination: {
@@ -350,7 +350,7 @@
         }
       },
       aigrumae: {
-        name: '> Äigrumäe',
+        name: 'Äigrumäe',
         stopId: '1580', // Oblika tee suunaga Äigrumäe (kood: 19002-1)
         stopCode: '19002-1',
         destination: {
