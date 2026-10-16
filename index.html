@@ -8,7 +8,7 @@
 
   <!-- PWA & Mobile Meta Tags -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#020617">
+  <meta name="theme-color" content="#0e1513">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -19,10 +19,10 @@
   <!-- Thematic Bus Favicon -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
-  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <!-- Google Fonts: Roboto & JetBrains Mono (Material Design 3 Typography) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -32,20 +32,28 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
+            sans: ['Roboto', 'system-ui', '-apple-system', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
           },
           colors: {
-            slate: {
-              950: '#020617',
-              900: '#0b1120',
-              850: '#111b2e',
-              800: '#1e293b',
-            },
-            tallinn: {
-              green: '#4b8501',
-              lightgreen: '#62ab02',
-              darkgreen: '#376201',
+            md: {
+              bg: '#0e1513',
+              surface: '#0e1513',
+              'surface-lowest': '#090f0e',
+              'surface-low': '#161d1b',
+              'surface-container': '#1a211f',
+              'surface-high': '#252b29',
+              'surface-highest': '#303634',
+              'on-surface': '#dee4e1',
+              'on-surface-variant': '#bec9c5',
+              outline: '#88938f',
+              'outline-variant': '#3f4946',
+              primary: '#00e0b3',
+              'on-primary': '#00382b',
+              'primary-container': '#00513f',
+              'on-primary-container': '#72f8ca',
+              'secondary-container': '#2b423b',
+              'on-secondary-container': '#cde8df',
             }
           }
         }
@@ -54,46 +62,83 @@
   </script>
 
   <style>
-    /* Kohandatud taust ja klaas-efekt (Glassmorphism) */
+    /* Google Material Design 3 (M3) Dark Theme Tonal Tokens & Elevation */
+    :root {
+      --md-sys-color-background: #0e1513;
+      --md-sys-color-surface: #0e1513;
+      --md-sys-color-surface-container-lowest: #090f0e;
+      --md-sys-color-surface-container-low: #161d1b;
+      --md-sys-color-surface-container: #1a211f;
+      --md-sys-color-surface-container-high: #252b29;
+      --md-sys-color-surface-container-highest: #303634;
+      --md-sys-color-on-surface: #dee4e1;
+      --md-sys-color-on-surface-variant: #bec9c5;
+      --md-sys-color-outline: #88938f;
+      --md-sys-color-outline-variant: #3f4946;
+      --md-sys-color-primary: #00e0b3;
+      --md-sys-color-on-primary: #00382b;
+      --md-sys-color-primary-container: #00513f;
+      --md-sys-color-on-primary-container: #72f8ca;
+      --md-sys-motion-standard: cubic-bezier(0.2, 0, 0, 1);
+    }
+
     body {
-      background-color: #020617;
-      background-image: 
-        radial-gradient(at 0% 0%, rgba(75, 133, 1, 0.18) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.14) 0px, transparent 50%),
-        radial-gradient(at 50% 50%, rgba(30, 41, 59, 0.3) 0px, transparent 70%);
-      background-attachment: fixed;
+      background-color: var(--md-sys-color-background);
+      color: var(--md-sys-color-on-surface);
     }
 
-    .glass-card {
-      background: rgba(15, 23, 42, 0.78);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+    /* M3 Surface Container Low (Peakaart) */
+    .m3-surface-card {
+      background-color: var(--md-sys-color-surface-container-low);
+      border: 1px solid rgba(63, 73, 70, 0.45);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.25);
     }
 
-    .glass-subcard {
-      background: rgba(30, 41, 59, 0.55);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+    /* M3 Primary / Featured Card (Järgmine väljumine) */
+    .m3-featured-card {
+      background: linear-gradient(145deg, #1e2a26 0%, #192420 100%);
+      border: 1px solid rgba(0, 224, 179, 0.28);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    /* M3 Secondary / List Card (Järgnevad väljumised) */
+    .m3-subcard {
+      background-color: var(--md-sys-color-surface-container);
+      border: 1px solid rgba(63, 73, 70, 0.4);
+      transition: background-color 0.2s var(--md-sys-motion-standard);
+    }
+
+    .m3-subcard:hover {
+      background-color: var(--md-sys-color-surface-container-high);
+    }
+
+    /* M3 State Layer efekt interaktiivsetele elementidele */
+    .m3-state-layer {
+      transition: background-color 0.2s var(--md-sys-motion-standard),
+                  border-color 0.2s var(--md-sys-motion-standard),
+                  color 0.2s var(--md-sys-motion-standard),
+                  box-shadow 0.2s var(--md-sys-motion-standard);
     }
 
     .fade-update {
-      animation: flash-subtle 0.2s ease-out;
+      animation: m3-fade-in 0.22s var(--md-sys-motion-standard);
     }
 
-    @keyframes flash-subtle {
-      0% { opacity: 0.8; }
+    @keyframes m3-fade-in {
+      0% { opacity: 0.82; }
       100% { opacity: 1; }
     }
 
-    /* Liikuma hakkamise liugurlüliti (Slider switch) */
+    /* M3 Switch (Liikuma hakkamise liugurlüliti) */
     .walk-switch-track {
-      transition: background-color 0.2s ease;
+      transition: background-color 0.2s var(--md-sys-motion-standard),
+                  border-color 0.2s var(--md-sys-motion-standard);
     }
     .walk-switch-thumb {
-      transition: transform 0.2s ease;
+      transition: transform 0.2s var(--md-sys-motion-standard),
+                  background-color 0.2s var(--md-sys-motion-standard),
+                  width 0.2s var(--md-sys-motion-standard),
+                  height 0.2s var(--md-sys-motion-standard);
     }
 
     /* Päise sihtkoha sujuv paremalt-vasakule skroll (marquee) */
@@ -135,37 +180,37 @@
     }
   </style>
 </head>
-<body class="min-h-screen text-slate-100 flex flex-col justify-between antialiased selection:bg-emerald-500 selection:text-white p-4 sm:p-6 md:p-8">
+<body class="min-h-screen bg-md-bg text-md-on-surface flex flex-col justify-between antialiased selection:bg-[#00e0b3] selection:text-[#00382b] p-3.5 sm:p-6 md:p-8">
 
   <!-- Peamine tsentreeritud konteiner -->
   <main class="w-full max-w-lg mx-auto flex-1 flex flex-col justify-center">
 
-    <!-- Peakaart -->
-    <div class="glass-card rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden transition-all duration-300">
+    <!-- M3 Peakaart (Extra Large shape: 28px) -->
+    <div class="m3-surface-card rounded-[28px] p-5 sm:p-7 relative overflow-hidden">
 
-      <!-- Päis: Liini info & reaalaja staatus -->
-      <header class="flex items-center justify-between gap-2 sm:gap-4 pb-4 sm:pb-5 border-b border-slate-800/80">
-        <div class="flex items-center gap-2.5 sm:gap-3.5 min-w-0 flex-1">
-          <!-- Bussiajad logo -->
-          <img src="favicon.svg" alt="Bussiajad logo" class="w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0 drop-shadow-md" width="48" height="48">
+      <!-- M3 Top App Bar / Päis: Peatuse info & suuna valik -->
+      <header class="flex items-center justify-between gap-2 sm:gap-4 pb-4 sm:pb-5 border-b border-md-outline-variant/50">
+        <div class="flex items-center gap-3 sm:gap-3.5 min-w-0 flex-1">
+          <!-- Bussiajad logo M3 tonaalsel alusel -->
+          <img src="favicon.svg" alt="Bussiajad logo" class="w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0 rounded-2xl" width="48" height="48">
           <div class="min-w-0 flex-1">
             <div class="flex items-center gap-2">
-              <h1 class="text-lg sm:text-2xl font-bold tracking-tight text-white truncate">
+              <h1 class="text-xl sm:text-2xl font-medium tracking-normal text-md-on-surface truncate">
                 Oblika tee
               </h1>
             </div>
-            <p id="route-subtitle" class="text-xs text-slate-400 font-medium tracking-wide flex items-center gap-1.5 mt-0.5 min-h-[1.25rem] whitespace-nowrap overflow-hidden">
-              <svg class="w-3.5 h-3.5 text-slate-500 inline flex-shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-              <span id="route-dest-container" tabindex="0" class="min-w-0 flex-1 overflow-hidden relative inline-flex items-center focus:outline-none focus:ring-1 focus:ring-slate-500/50 rounded" title="Väike-Õismäe / Viru keskus / Pirita keskus">
+            <p id="route-subtitle" class="text-xs text-md-on-surface-variant font-normal tracking-wide flex items-center gap-1.5 mt-0.5 min-h-[1.25rem] whitespace-nowrap overflow-hidden">
+              <svg class="w-3.5 h-3.5 text-[#00e0b3] inline flex-shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
+              <span id="route-dest-container" tabindex="0" class="min-w-0 flex-1 overflow-hidden relative inline-flex items-center focus:outline-none focus:ring-1 focus:ring-[#00e0b3]/60 rounded" title="Väike-Õismäe / Viru keskus / Pirita keskus">
                 <span id="route-dest-track" class="inline-flex items-center whitespace-nowrap">
-                  <span id="route-destination" class="text-slate-300 font-semibold whitespace-nowrap inline-block">Väike-Õismäe / Viru keskus / Pirita keskus</span>
+                  <span id="route-destination" class="text-md-on-surface-variant font-medium whitespace-nowrap inline-block">Väike-Õismäe / Viru keskus / Pirita keskus</span>
                 </span>
               </span>
             </p>
           </div>
         </div>
 
-        <!-- Suuna valik (Kohandatud tumeda stiiliga Drop-down menüü) -->
+        <!-- Suuna valik (M3 Tonal/Outlined Filter Chip Dropdown) -->
         <div class="flex-shrink-0 flex items-center pl-1 relative" id="direction-dropdown-container">
           <div class="relative">
             <button
@@ -176,20 +221,20 @@
               aria-expanded="false"
               aria-controls="direction-menu"
               aria-label="Vali suund"
-              class="w-[92px] sm:w-[106px] inline-flex items-center justify-between gap-1.5 bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700/80 hover:border-slate-600 rounded-xl px-2.5 py-2 text-[11px] sm:text-[13px] font-semibold transition shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/50 cursor-pointer select-none whitespace-nowrap"
+              class="m3-state-layer w-[96px] sm:w-[110px] inline-flex items-center justify-between gap-1.5 bg-md-surface-high hover:bg-md-surface-highest text-md-on-surface border border-md-outline-variant rounded-full px-3.5 py-2 text-xs sm:text-[13px] font-medium focus:outline-none focus:ring-2 focus:ring-[#00e0b3] cursor-pointer select-none whitespace-nowrap"
             >
               <span id="direction-btn-text">Pirita</span>
-              <svg id="direction-chevron" class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <svg id="direction-chevron" class="w-4 h-4 text-md-on-surface-variant transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
 
-            <!-- Tume klaasjas valikute rippaken (vastab lehe Glassmorphism disainile) -->
+            <!-- M3 Menu (Surface Container High, rounded-2xl, elevation 2) -->
             <div
               id="direction-menu"
               role="listbox"
               aria-label="Vali suund"
-              class="hidden absolute right-0 mt-1.5 min-w-[130px] sm:min-w-[140px] bg-slate-900/95 backdrop-blur-xl border border-slate-700/80 rounded-2xl shadow-2xl p-1 z-50 text-xs sm:text-[13px] font-semibold space-y-0.5"
+              class="hidden absolute right-0 mt-2 min-w-[136px] sm:min-w-[148px] bg-md-surface-high border border-md-outline-variant/70 rounded-2xl shadow-xl py-1.5 px-1.5 z-50 text-xs sm:text-[13px] font-medium space-y-1"
             >
               <button
                 type="button"
@@ -197,11 +242,11 @@
                 id="dir-opt-pirita"
                 aria-selected="true"
                 onclick="selectDirection('pirita')"
-                class="w-full text-left px-3 py-2 rounded-xl flex items-center justify-between transition-colors bg-emerald-500/15 text-emerald-400 font-bold border border-emerald-500/20"
+                class="m3-state-layer w-full text-left px-3.5 py-2.5 rounded-xl flex items-center justify-between bg-[#00513f] text-[#72f8ca] font-medium"
               >
                 <span>Pirita</span>
-                <svg id="dir-check-pirita" class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                <svg id="dir-check-pirita" class="w-4 h-4 text-[#00e0b3] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5 13l4 4L19 7" />
                 </svg>
               </button>
               <button
@@ -210,11 +255,11 @@
                 id="dir-opt-aigrumae"
                 aria-selected="false"
                 onclick="selectDirection('aigrumae')"
-                class="w-full text-left px-3 py-2 rounded-xl flex items-center justify-between transition-colors text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent"
+                class="m3-state-layer w-full text-left px-3.5 py-2.5 rounded-xl flex items-center justify-between text-md-on-surface hover:bg-md-surface-highest"
               >
                 <span>Äigrumäe</span>
-                <svg id="dir-check-aigrumae" class="hidden w-3.5 h-3.5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                <svg id="dir-check-aigrumae" class="hidden w-4 h-4 text-[#00e0b3] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5 13l4 4L19 7" />
                 </svg>
               </button>
             </div>
@@ -222,93 +267,93 @@
         </div>
       </header>
 
-      <!-- Liinifiltri vahelehed -->
-      <nav class="mt-4 grid grid-cols-4 gap-1 sm:gap-1.5 p-1 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-inner text-[11px] sm:text-[13px] font-semibold" role="tablist" aria-label="Liinifilter">
-        <button id="filter-all" onclick="setLineFilter('all')" role="tab" aria-selected="true" aria-controls="departures-container" class="py-2 px-1.5 sm:px-2.5 rounded-xl transition-all duration-200 text-white bg-slate-800 border border-slate-600/80 shadow-md font-bold flex items-center justify-center gap-1 sm:gap-1.5 whitespace-nowrap">
+      <!-- M3 Segmented Button / Navigation Pill Bar (Liinifilter) -->
+      <nav class="mt-4 grid grid-cols-4 gap-1 sm:gap-1.5 p-1 bg-md-surface-lowest rounded-full border border-md-outline-variant/60 text-[11px] sm:text-[13px] font-medium" role="tablist" aria-label="Liinifilter">
+        <button id="filter-all" onclick="setLineFilter('all')" role="tab" aria-selected="true" aria-controls="departures-container" class="m3-state-layer py-2 px-1.5 sm:px-2.5 rounded-full text-[#72f8ca] bg-[#00513f] font-medium flex items-center justify-center gap-1 sm:gap-1.5 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00e0b3]">
           <span>Kõik liinid</span>
         </button>
-        <button id="filter-8" onclick="setLineFilter('8')" role="tab" aria-selected="false" aria-controls="departures-container" class="py-2 px-1.5 sm:px-2.5 rounded-xl transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-800/50 border border-transparent flex items-center justify-center gap-1 sm:gap-1.5 whitespace-nowrap">
-          <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#00e0b3] shadow-sm shadow-[#00e0b3]/50 flex-shrink-0" aria-hidden="true"></span>
+        <button id="filter-8" onclick="setLineFilter('8')" role="tab" aria-selected="false" aria-controls="departures-container" class="m3-state-layer py-2 px-1.5 sm:px-2.5 rounded-full text-md-on-surface-variant hover:text-md-on-surface hover:bg-md-surface-high/60 flex items-center justify-center gap-1 sm:gap-1.5 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00e0b3]">
+          <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#00e0b3] flex-shrink-0" aria-hidden="true"></span>
           <span>Liin 8</span>
         </button>
-        <button id="filter-8a" onclick="setLineFilter('8A')" role="tab" aria-selected="false" aria-controls="departures-container" class="py-2 px-1.5 sm:px-2.5 rounded-xl transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-800/50 border border-transparent flex items-center justify-center gap-1 sm:gap-1.5 whitespace-nowrap">
-          <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#00e0b3] shadow-sm shadow-[#00e0b3]/50 flex-shrink-0" aria-hidden="true"></span>
+        <button id="filter-8a" onclick="setLineFilter('8A')" role="tab" aria-selected="false" aria-controls="departures-container" class="m3-state-layer py-2 px-1.5 sm:px-2.5 rounded-full text-md-on-surface-variant hover:text-md-on-surface hover:bg-md-surface-high/60 flex items-center justify-center gap-1 sm:gap-1.5 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00e0b3]">
+          <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#00e0b3] flex-shrink-0" aria-hidden="true"></span>
           <span>Liin 8A</span>
         </button>
-        <button id="filter-48" onclick="setLineFilter('48')" role="tab" aria-selected="false" aria-controls="departures-container" class="py-2 px-1.5 sm:px-2.5 rounded-xl transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-800/50 border border-transparent flex items-center justify-center gap-1 sm:gap-1.5 whitespace-nowrap">
-          <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#00e0b3] shadow-sm shadow-[#00e0b3]/50 flex-shrink-0" aria-hidden="true"></span>
+        <button id="filter-48" onclick="setLineFilter('48')" role="tab" aria-selected="false" aria-controls="departures-container" class="m3-state-layer py-2 px-1.5 sm:px-2.5 rounded-full text-md-on-surface-variant hover:text-md-on-surface hover:bg-md-surface-high/60 flex items-center justify-center gap-1 sm:gap-1.5 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00e0b3]">
+          <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#00e0b3] flex-shrink-0" aria-hidden="true"></span>
           <span>Liin 48</span>
         </button>
       </nav>
 
       <!-- Väljumiste sektsioon -->
-      <section id="departures-container" role="tabpanel" class="mt-5 space-y-3.5">
-        <div id="cards-wrapper" class="space-y-3.5">
-          <!-- Esialgne laadimisolek (skelett) -->
-          <div class="animate-pulse space-y-3.5">
-            <div class="h-28 bg-slate-800/50 rounded-2xl"></div>
-            <div class="h-20 bg-slate-800/30 rounded-2xl"></div>
+      <section id="departures-container" role="tabpanel" class="mt-5 space-y-3">
+        <div id="cards-wrapper" class="space-y-3">
+          <!-- Esialgne laadimisolek (M3 skelett) -->
+          <div class="animate-pulse space-y-3">
+            <div class="h-32 bg-md-surface-high/70 rounded-[24px]"></div>
+            <div class="h-20 bg-md-surface-container rounded-[20px]"></div>
           </div>
         </div>
 
         <!-- Teade, kui väljumisi pole või tekkis viga -->
-        <div id="empty-state" class="hidden py-8 px-4 text-center glass-subcard rounded-2xl border border-slate-800" aria-live="polite">
-          <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-slate-800/80 flex items-center justify-center text-slate-400">
+        <div id="empty-state" class="hidden py-8 px-4 text-center m3-subcard rounded-[24px]" aria-live="polite">
+          <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-md-surface-high flex items-center justify-center text-[#00e0b3]">
             <svg class="w-6 h-6" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
-          <p id="empty-message" class="text-sm text-slate-300 font-medium">Praegu väljumisi ei leitud.</p>
-          <p id="empty-submessage" class="text-xs text-slate-500 mt-1">Bussiliin võib olla puhkeajal või andmed uuenevad.</p>
+          <p id="empty-message" class="text-sm text-md-on-surface font-medium">Praegu väljumisi ei leitud.</p>
+          <p id="empty-submessage" class="text-xs text-md-on-surface-variant mt-1">Bussiliin võib olla puhkeajal või andmed uuenevad.</p>
         </div>
       </section>
 
-      <!-- Jalus: Uuendamise info, liikuma hakkamise slaider ja lingid -->
-      <footer class="mt-6 pt-5 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-y-2.5 gap-x-2 text-xs text-slate-400">
+      <!-- Jalus: Uuendamise info, M3 liikuma hakkamise lüliti ja lingid -->
+      <footer class="mt-6 pt-4 border-t border-md-outline-variant/50 flex flex-wrap items-center justify-between gap-y-2.5 gap-x-2 text-xs text-md-on-surface-variant">
         <div class="flex items-center gap-1.5 sm:gap-2">
-          <!-- Paigalda äpp (ainult ikoon seadmesse paigaldamiseks) -->
-          <button id="pwa-install-btn" class="hidden items-center justify-center px-2 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-semibold transition active:scale-95 flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-emerald-500/40" title="Paigalda rakendus seadmesse" aria-label="Paigalda rakendus seadmesse">
+          <!-- Paigalda äpp (M3 Tonal Icon Button) -->
+          <button id="pwa-install-btn" class="m3-state-layer hidden items-center justify-center px-2.5 py-1.5 rounded-full bg-[#00513f] hover:bg-[#006851] text-[#72f8ca] text-xs font-medium active:scale-95 flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-[#00e0b3]" title="Paigalda rakendus seadmesse" aria-label="Paigalda rakendus seadmesse">
             <svg class="w-3.5 h-3.5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
           </button>
 
           <!-- Viimati uuendatud aeg -->
-          <span id="last-updated" class="font-mono text-slate-300 font-semibold whitespace-nowrap">--:--:--</span>
+          <span id="last-updated" class="font-mono text-md-on-surface font-medium whitespace-nowrap">--:--:--</span>
 
-          <!-- Värskenda kohe nupp koos sekundiloenduriga -->
-          <button id="refresh-btn" onclick="manualRefresh()" title="Värskenda väljumisi kohe" aria-label="Värskenda väljumisi kohe" class="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition active:scale-95 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 flex-shrink-0">
-            <svg id="refresh-icon" class="w-3.5 h-3.5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <!-- Värskenda kohe nupp koos sekundiloenduriga (M3 Tonal Pill Button) -->
+          <button id="refresh-btn" onclick="manualRefresh()" title="Värskenda väljumisi kohe" aria-label="Värskenda väljumisi kohe" class="m3-state-layer inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-md-surface-high hover:bg-md-surface-highest text-md-on-surface-variant hover:text-md-on-surface active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#00e0b3] flex-shrink-0">
+            <svg id="refresh-icon" class="w-3.5 h-3.5 text-[#00e0b3]" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
-            <span id="countdown-badge" class="font-mono text-[11px] text-slate-400">15s</span>
+            <span id="countdown-badge" class="font-mono text-[11px] text-md-on-surface-variant">15s</span>
           </button>
         </div>
 
-        <div class="flex items-center gap-2.5 sm:gap-3 text-slate-400 flex-shrink-0">
-          <!-- Liikuma hakkamise slaider -->
-          <label for="walk-toggle" class="group inline-flex items-center gap-1.5 cursor-pointer select-none text-slate-400 hover:text-slate-300 py-0.5 px-1 rounded-lg transition" title="Liikuma hakkamise aeg (väljumine - 4 min)">
-            <svg id="walk-icon" class="w-3.5 h-3.5 text-slate-400 transition-colors duration-200 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <div class="flex items-center gap-2.5 sm:gap-3 text-md-on-surface-variant flex-shrink-0">
+          <!-- Liikuma hakkamise M3 Switch -->
+          <label for="walk-toggle" class="group inline-flex items-center gap-1.5 cursor-pointer select-none text-md-on-surface-variant hover:text-md-on-surface py-0.5 px-1 rounded-full transition" title="Liikuma hakkamise aeg (väljumine - 4 min)">
+            <svg id="walk-icon" class="w-4 h-4 text-md-on-surface-variant transition-colors duration-200 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/>
             </svg>
             <span class="relative inline-flex items-center">
               <input type="checkbox" id="walk-toggle" role="switch" aria-label="Liikuma hakkamise aeg" class="sr-only peer" onchange="toggleWalkTime(this.checked)">
-              <span class="walk-switch-track w-7 h-4 bg-slate-700/90 peer-checked:bg-orange-500 rounded-full block shadow-inner peer-focus-visible:ring-2 peer-focus-visible:ring-orange-400 peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-slate-900"></span>
-              <span class="walk-switch-thumb absolute left-0.5 top-0.5 w-3 h-3 bg-white rounded-full pointer-events-none shadow peer-checked:translate-x-3"></span>
+              <span class="walk-switch-track w-9 h-5 bg-md-surface-highest border border-md-outline peer-checked:bg-orange-400 peer-checked:border-orange-400 rounded-full block peer-focus-visible:ring-2 peer-focus-visible:ring-orange-400 peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-md-surface-low"></span>
+              <span class="walk-switch-thumb absolute left-1 top-1 w-3 h-3 bg-md-outline rounded-full pointer-events-none peer-checked:translate-x-4 peer-checked:bg-[#3e1c00]"></span>
             </span>
           </label>
 
-          <span class="text-slate-700 select-none" aria-hidden="true">|</span>
+          <span class="text-md-outline-variant select-none" aria-hidden="true">|</span>
 
           <div class="flex items-center gap-1.5" title="Ametlikud sõiduplaanid">
-            <svg class="w-3.5 h-3.5 text-slate-400" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-3.5 h-3.5 text-md-on-surface-variant" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            <a id="schedule-link-8" href="https://transport.tallinn.ee/#bus/8/b-a/19001-1" target="_blank" rel="noopener noreferrer" aria-label="Liini 8 ametlik sõiduplaan" class="hover:text-[#00e0b3] font-semibold underline underline-offset-4 decoration-slate-700 hover:decoration-[#00e0b3] transition">8</a>
-            <span class="text-slate-600" aria-hidden="true">·</span>
-            <a id="schedule-link-8a" href="https://transport.tallinn.ee/#bus/8a/b-a/19001-1" target="_blank" rel="noopener noreferrer" aria-label="Liini 8A ametlik sõiduplaan" class="hover:text-[#00e0b3] font-semibold underline underline-offset-4 decoration-slate-700 hover:decoration-[#00e0b3] transition">8A</a>
-            <span class="text-slate-600" aria-hidden="true">·</span>
-            <a id="schedule-link-48" href="https://transport.tallinn.ee/#bus/48/b-a/19001-1" target="_blank" rel="noopener noreferrer" aria-label="Liini 48 ametlik sõiduplaan" class="hover:text-[#00e0b3] font-semibold underline underline-offset-4 decoration-slate-700 hover:decoration-[#00e0b3] transition">48</a>
+            <a id="schedule-link-8" href="https://transport.tallinn.ee/#bus/8/b-a/19001-1" target="_blank" rel="noopener noreferrer" aria-label="Liini 8 ametlik sõiduplaan" class="hover:text-[#00e0b3] font-medium underline underline-offset-4 decoration-md-outline-variant hover:decoration-[#00e0b3] transition">8</a>
+            <span class="text-md-outline" aria-hidden="true">·</span>
+            <a id="schedule-link-8a" href="https://transport.tallinn.ee/#bus/8a/b-a/19001-1" target="_blank" rel="noopener noreferrer" aria-label="Liini 8A ametlik sõiduplaan" class="hover:text-[#00e0b3] font-medium underline underline-offset-4 decoration-md-outline-variant hover:decoration-[#00e0b3] transition">8A</a>
+            <span class="text-md-outline" aria-hidden="true">·</span>
+            <a id="schedule-link-48" href="https://transport.tallinn.ee/#bus/48/b-a/19001-1" target="_blank" rel="noopener noreferrer" aria-label="Liini 48 ametlik sõiduplaan" class="hover:text-[#00e0b3] font-medium underline underline-offset-4 decoration-md-outline-variant hover:decoration-[#00e0b3] transition">48</a>
           </div>
         </div>
       </footer>
@@ -401,7 +446,7 @@
     }
 
     function getLineBadge(line) {
-      return `<span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-lg bg-[#00e0b3] text-slate-950 font-black text-sm tracking-tight shadow-sm">${escapeHtml(line)}</span>`;
+      return `<span class="inline-flex items-center justify-center min-w-[2.25rem] px-2.5 py-1 rounded-xl bg-[#00e0b3] text-[#00382b] font-bold text-sm tracking-tight">${escapeHtml(line)}</span>`;
     }
 
     function updateRouteHeader() {
@@ -412,7 +457,6 @@
       const destText = dirConfig.destination[activeFilter] || dirConfig.destination.all;
 
       destEl.textContent = destText;
-      destEl.setAttribute('title', destText);
 
       updateDestinationMarquee();
     }
@@ -464,7 +508,7 @@
       }
       activeDirection = dir;
 
-      // Uuenda kohandatud rippmenüü nuppu ja valikute olekut
+      // Uuenda M3 rippmenüü nuppu ja valikute olekut
       const btnText = document.getElementById('direction-btn-text');
       if (btnText) {
         btnText.textContent = DIRECTIONS[dir].name;
@@ -475,8 +519,8 @@
       const checkPirita = document.getElementById('dir-check-pirita');
       const checkAigrumae = document.getElementById('dir-check-aigrumae');
 
-      const activeClasses = ['bg-emerald-500/15', 'text-emerald-400', 'font-bold', 'border-emerald-500/20'];
-      const inactiveClasses = ['text-slate-300', 'hover:text-white', 'hover:bg-slate-800/80', 'border-transparent'];
+      const activeClasses = ['bg-[#00513f]', 'text-[#72f8ca]', 'font-medium'];
+      const inactiveClasses = ['text-md-on-surface', 'hover:bg-md-surface-highest'];
 
       if (dir === 'pirita') {
         if (optPirita) {
@@ -534,15 +578,15 @@
       updateRouteHeader();
       updateFooterSchedules();
 
-      // Kuva laadimisskelett uue suuna laadimisel
+      // Kuva M3 laadimisskelett uue suuna laadimisel
       const wrapper = document.getElementById('cards-wrapper');
       const emptyState = document.getElementById('empty-state');
       if (emptyState) emptyState.classList.add('hidden');
       if (wrapper) {
         wrapper.innerHTML = `
-          <div class="animate-pulse space-y-3.5">
-            <div class="h-28 bg-slate-800/50 rounded-2xl"></div>
-            <div class="h-20 bg-slate-800/30 rounded-2xl"></div>
+          <div class="animate-pulse space-y-3">
+            <div class="h-32 bg-md-surface-high/70 rounded-[24px]"></div>
+            <div class="h-20 bg-md-surface-container rounded-[20px]"></div>
           </div>
         `;
       }
@@ -584,7 +628,7 @@
 
         // Duplikaat sujuvaks ja katkematu paremalt-vasakule korduseks
         const dup = document.createElement('span');
-        dup.className = 'marquee-dup text-slate-300 font-semibold pr-8 whitespace-nowrap inline-block';
+        dup.className = 'marquee-dup text-md-on-surface-variant font-medium pr-8 whitespace-nowrap inline-block';
         dup.setAttribute('aria-hidden', 'true');
         dup.textContent = currentText;
         track.appendChild(dup);
@@ -622,11 +666,10 @@
         window.history.replaceState(null, '', url.toString());
       }
 
-      const baseInactive = ['text-slate-300', 'hover:text-white', 'hover:bg-slate-800/50', 'border-transparent'];
-      const activeAllClasses = ['text-white', 'bg-slate-800', 'border-slate-600/80', 'shadow-md', 'font-bold'];
-      const activeLineClasses = ['text-[#00e0b3]', 'bg-[#00e0b3]/15', 'border-[#00e0b3]/50', 'shadow-md', 'shadow-[#00e0b3]/10', 'font-bold'];
+      const baseInactive = ['text-md-on-surface-variant', 'hover:text-md-on-surface', 'hover:bg-md-surface-high/60'];
+      const activeClasses = ['text-[#72f8ca]', 'bg-[#00513f]', 'font-medium'];
 
-      const allDynamicClasses = [...baseInactive, ...activeAllClasses, ...activeLineClasses];
+      const allDynamicClasses = [...baseInactive, ...activeClasses];
 
       [btnAll, btn8, btn8A, btn48].forEach(btn => {
         if (!btn) return;
@@ -634,18 +677,10 @@
         btn.classList.add(...baseInactive);
       });
 
-      if (filter === '8' && btn8) {
-        btn8.classList.remove(...baseInactive);
-        btn8.classList.add(...activeLineClasses);
-      } else if (filter === '8A' && btn8A) {
-        btn8A.classList.remove(...baseInactive);
-        btn8A.classList.add(...activeLineClasses);
-      } else if (filter === '48' && btn48) {
-        btn48.classList.remove(...baseInactive);
-        btn48.classList.add(...activeLineClasses);
-      } else if (btnAll) {
-        btnAll.classList.remove(...baseInactive);
-        btnAll.classList.add(...activeAllClasses);
+      const activeBtn = filter === '8' ? btn8 : (filter === '8A' ? btn8A : (filter === '48' ? btn48 : btnAll));
+      if (activeBtn) {
+        activeBtn.classList.remove(...baseInactive);
+        activeBtn.classList.add(...activeClasses);
       }
 
       updateRouteHeader();
@@ -851,13 +886,13 @@
           ? `https://transport.tallinn.ee/#bus/${dep.line.toLowerCase()}/a-b/19002-1/map`
           : `https://transport.tallinn.ee/#bus/${dep.line.toLowerCase()}/b-a/19001-1/map`);
         const delayBadge = dep.delayMinutes !== 0 
-          ? `<span class="text-xs px-2 py-0.5 rounded-full ${dep.delayMinutes > 0 ? 'bg-amber-950/60 text-amber-300 border border-amber-500/30' : 'bg-blue-950/60 text-blue-300 border border-blue-500/30'}">${escapeHtml(dep.delayText)}</span>`
-          : `<span class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">Graafikus</span>`;
+          ? `<span class="text-xs px-2.5 py-0.5 rounded-full font-medium ${dep.delayMinutes > 0 ? 'bg-amber-950/80 text-amber-300 border border-amber-500/30' : 'bg-sky-950/80 text-sky-300 border border-sky-500/30'}">${escapeHtml(dep.delayText)}</span>`
+          : `<span class="text-xs px-2.5 py-0.5 rounded-full font-medium bg-md-surface-high text-md-on-surface-variant border border-md-outline-variant/60">Graafikus</span>`;
 
         const badgeHtml = getLineBadge(dep.line);
 
         if (isFirst) {
-          // Liikuma hakkamise info (kui slaider on sisse lülitatud)
+          // Liikuma hakkamise info (kui M3 lüliti on sisse lülitatud)
           let walkHtml = '';
           if (isWalkEnabled) {
             const elapsed = lastFetchTimestamp ? Math.floor((Date.now() - lastFetchTimestamp) / 1000) : 0;
@@ -865,7 +900,7 @@
 
             if (currentRemainingSec < 240) {
               walkHtml = `
-                <div id="walk-time-indicator" data-waited="true" class="mt-1 flex items-center gap-1.5 text-xs text-rose-400 font-medium">
+                <div id="walk-time-indicator" data-waited="true" class="mt-1.5 flex items-center gap-1.5 text-xs text-rose-400 font-medium">
                   <svg class="w-3.5 h-3.5 flex-shrink-0 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -876,7 +911,7 @@
               const walkSec = dep.expectedSec - 240;
               const walkTimeStr = formatSecondsToTime(walkSec);
               walkHtml = `
-                <div id="walk-time-indicator" data-waited="false" class="mt-1 flex items-center gap-1.5 text-xs text-orange-400 font-medium">
+                <div id="walk-time-indicator" data-waited="false" class="mt-1.5 flex items-center gap-1.5 text-xs text-orange-400 font-medium">
                   <svg class="w-3.5 h-3.5 flex-shrink-0 text-orange-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/>
                   </svg>
@@ -886,42 +921,42 @@
             }
           }
 
-          // 1. kaart: Peamine / Järgmine buss
+          // 1. kaart: M3 Peamine / Järgmine buss (Large shape: 24px, Tonal Elevation)
           html += `
-            <div class="glass-subcard rounded-2xl p-5 border-emerald-500/30 bg-gradient-to-br from-slate-900/90 to-slate-850/80 shadow-lg relative overflow-hidden">
+            <div class="m3-featured-card rounded-[24px] p-5 relative overflow-hidden">
               <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2.5">
+                <div class="flex items-center gap-3">
                   ${badgeHtml}
                   <div>
                     <div class="flex items-center gap-2">
-                      <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded-md border border-emerald-500/30">
+                      <span class="text-[11px] font-medium uppercase tracking-wider text-[#72f8ca] bg-[#00513f] px-2.5 py-0.5 rounded-full">
                         Järgmine
                       </span>
                       ${delayBadge}
                     </div>
-                    <span class="text-xs text-slate-400 mt-0.5 block font-medium">→ ${dep.destination}</span>
+                    <span class="text-xs text-md-on-surface-variant mt-1 block font-normal">→ ${dep.destination}</span>
                   </div>
                 </div>
 
-                <!-- Minutite loendur -->
+                <!-- Minutite loendur (M3 Pill Chip) -->
                 <div class="text-right">
-                  <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl ${isImminent ? 'bg-emerald-500 text-slate-950 font-bold animate-pulse' : 'bg-emerald-950/80 text-emerald-300 border border-emerald-500/40'} text-sm font-semibold shadow-md">
+                  <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full ${isImminent ? 'bg-[#00e0b3] text-[#00382b] font-bold animate-pulse' : 'bg-[#00513f] text-[#72f8ca] font-medium'} text-sm">
                     ${escapeHtml(dep.remainingText)}
                   </div>
                 </div>
               </div>
 
-              <!-- Suur kellaaeg & Kaart nupp -->
-              <div class="mt-4 flex items-center justify-between pt-3 border-t border-slate-800/60">
+              <!-- Suur kellaaeg & M3 Tonal "Kaart" nupp -->
+              <div class="mt-4 flex items-center justify-between pt-3.5 border-t border-md-outline-variant/40">
                 <div>
-                  <div class="flex items-baseline gap-2">
-                    <span class="font-mono text-4xl sm:text-5xl font-extrabold text-white tracking-tight">${escapeHtml(dep.time)}</span>
-                    ${dep.scheduledTime !== dep.time ? `<span class="font-mono text-xs text-slate-500 line-through">plaanis ${escapeHtml(dep.scheduledTime)}</span>` : ''}
+                  <div class="flex items-baseline gap-2.5">
+                    <span class="font-mono text-4xl sm:text-5xl font-bold text-md-on-surface tracking-tight">${escapeHtml(dep.time)}</span>
+                    ${dep.scheduledTime !== dep.time ? `<span class="font-mono text-xs text-md-on-surface-variant/70 line-through">plaanis ${escapeHtml(dep.scheduledTime)}</span>` : ''}
                   </div>
                   ${walkHtml}
                 </div>
-                <a href="${escapeHtml(mapUrl)}" target="_blank" rel="noopener noreferrer" title="Vaata liini ${escapeHtml(dep.line)} bussi reaalajas kaardil" aria-label="Vaata liini ${escapeHtml(dep.line)} bussi reaalajas kaardil" class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-300 hover:text-emerald-300 border border-slate-700/80 text-xs font-semibold transition active:scale-95 shadow-sm">
-                  <svg class="w-3.5 h-3.5 text-emerald-400" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <a href="${escapeHtml(mapUrl)}" target="_blank" rel="noopener noreferrer" title="Vaata liini ${escapeHtml(dep.line)} bussi reaalajas kaardil" aria-label="Vaata liini ${escapeHtml(dep.line)} bussi reaalajas kaardil" class="m3-state-layer inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-full bg-md-secondary-container hover:bg-[#365249] text-md-on-secondary-container text-xs font-medium active:scale-95">
+                  <svg class="w-4 h-4 text-[#00e0b3]" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                   </svg>
                   <span class="hidden sm:inline">Kaart</span>
@@ -930,18 +965,18 @@
             </div>
           `;
         } else {
-          // Järgnevad väljumised
+          // Järgnevad väljumised (M3 Surface Container Card)
           html += `
-            <div class="glass-subcard rounded-2xl p-3.5 border-slate-800 bg-slate-900/50 shadow transition-all hover:bg-slate-900/70">
+            <div class="m3-subcard rounded-[20px] p-3.5">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
                   ${badgeHtml}
                   <div>
                     <div class="flex items-baseline gap-2">
-                      <span class="font-mono text-xl font-bold text-slate-100">${escapeHtml(dep.time)}</span>
-                      <span class="text-xs text-slate-400 font-medium">(${escapeHtml(dep.remainingText)})</span>
+                      <span class="font-mono text-xl font-bold text-md-on-surface">${escapeHtml(dep.time)}</span>
+                      <span class="text-xs text-md-on-surface-variant font-medium">(${escapeHtml(dep.remainingText)})</span>
                     </div>
-                    <span class="text-[11px] text-slate-400">→ ${dep.destination}</span>
+                    <span class="text-xs text-md-on-surface-variant">→ ${dep.destination}</span>
                   </div>
                 </div>
 
@@ -969,7 +1004,7 @@
       // Kui meil on juba väljumised ekraanil, säilitame need ja näitame hoiatust
       if (lastFetchedDepartures && lastFetchedDepartures.length > 0) {
         if (lastUpdatedEl) {
-          lastUpdatedEl.innerHTML = `<span class="text-amber-400 font-semibold" title="${escapeHtml(errorMsg)}">${lastUpdatedTime} ⚠️</span>`;
+          lastUpdatedEl.innerHTML = `<span class="text-amber-400 font-medium" title="${escapeHtml(errorMsg)}">${lastUpdatedTime} ⚠️</span>`;
         }
         return;
       }
@@ -1019,11 +1054,11 @@
 
       if (icon) {
         if (isWalkEnabled) {
-          icon.classList.remove('text-slate-400');
+          icon.classList.remove('text-md-on-surface-variant');
           icon.classList.add('text-orange-400');
         } else {
           icon.classList.remove('text-orange-400');
-          icon.classList.add('text-slate-400');
+          icon.classList.add('text-md-on-surface-variant');
         }
       }
     }
@@ -1126,8 +1161,11 @@
 
       // 3. Võrguühenduse (Online/Offline) oleku jälgimine
       window.addEventListener('online', () => {
-        fetchDepartures();
-        resetRefreshCycle();
+        if (!document.hidden) {
+          fetchDepartures();
+          resetRefreshCycle();
+          startCountdown();
+        }
       });
     }
 
@@ -1215,12 +1253,15 @@
         }
       });
 
-      // Sulge suuna rippmenüü Escape klahviga
+      // Sulge suuna rippmenüü Escape klahviga ainult siis, kui menüü on avatud
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
-          closeDirectionDropdown();
-          const btn = document.getElementById('direction-btn');
-          if (btn) btn.focus();
+          const menu = document.getElementById('direction-menu');
+          if (menu && !menu.classList.contains('hidden')) {
+            closeDirectionDropdown();
+            const btn = document.getElementById('direction-btn');
+            if (btn) btn.focus();
+          }
         }
       });
 

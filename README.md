@@ -20,7 +20,7 @@ Veebirakendus, mis kuvab Tallinna busside nr **8**, **8A** ja **48** reaalajas v
 - **Liinifilter:** Vahelehed liinide vahel valimiseks (`Kõik liinid`, `Liin 8`, `Liin 8A`, `Liin 48`), toetades ka otseteed URL-i parameetriga (`?filter=8`, `?filter=8A`, `?filter=48`).
 - **Automaatne uuendus ja loendur:** Andmed uuenevad automaatselt iga 15 sekundi järel; jaluses kuvatakse viimase uuenduse kellaaega (`HH:MM:SS`) ja sekundiloenduriga käsitsi värskenduse nuppu.
 - **Graafikupõhine info:** Näitab bussi prognoositavat saabumisaega, hilinemist/ennatlikkust ja läbikriipsutatud plaanilist aega.
-- **Silmasõbralik tume disain:** Kaasaegne klaasjas tume välimus (Glassmorphism) ühtse liiniaktsendiga, optimeeritud nii nutitelefonidele kui ka seinaekraanidele ja infotahvlitele.
+- **Google Material Design 3 (M3) tume disain:** Kaasaegne Material You tonaalsete pindadega tume välimus ühtse liiniaktsendiga, optimeeritud nii nutitelefonidele kui ka seinaekraanidele ja infotahvlitele.
 - **PWA (Progressive Web App) tugi:** Paigaldatav rakendusena koduekraanile või arvutisse (võrguühenduseta kest, koduekraani otseteed, automaatne vahemälu).
 - **Reaalajas kaardijälgimine:** Otseteed ja kaardinupud busside asukoha reaalajas jälgimiseks kaardil vastavalt valitud sõidusuunale.
 - **Otseteed sõiduplaanidele:** Jaluses olevad kiirlingid valitud suuna ametlikele sõiduplaanidele (`8 · 8A · 48`).
