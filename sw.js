@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bussiajad-v12';
+const CACHE_NAME = 'bussiajad-v14';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -49,7 +49,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 2. Navigatsioonipäringud (HTML lehe avamine, sh ?filter=8 ja ?filter=8A PWA otseteed): Network-First koos vahemälu tagavaraga
+  // 2. Navigatsioonipäringud (HTML lehe avamine, sh ?filter=8, ?filter=8A, ?filter=48 PWA otseteed): Network-First koos vahemälu tagavaraga
   if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request).then((networkResponse) => {
@@ -58,7 +58,10 @@ self.addEventListener('fetch', (event) => {
           caches.open(CACHE_NAME).then((cache) => cache.put('./index.html', responseClone));
         }
         return networkResponse;
-      }).catch(() => caches.match('./index.html'))
+      }).catch(async () => {
+        const cached = await caches.match('./index.html');
+        return cached || new Response('', { status: 504, statusText: 'Offline' });
+      })
     );
     return;
   }
@@ -75,7 +78,7 @@ self.addEventListener('fetch', (event) => {
             cache.put(event.request, networkResponse.clone());
           }
           return networkResponse;
-        }).catch(() => cachedResponse);
+        }).catch(() => cachedResponse || new Response('', { status: 504, statusText: 'Offline' }));
 
         return cachedResponse || fetchPromise;
       })
@@ -94,7 +97,7 @@ self.addEventListener('fetch', (event) => {
           });
         }
         return networkResponse;
-      }).catch(() => cachedResponse);
+      }).catch(() => cachedResponse || new Response('', { status: 504, statusText: 'Offline' }));
 
       return cachedResponse || fetchPromise;
     })

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bussid 8 & 8A | Oblika tee - Reaalaja väljumised</title>
-  <meta name="description" content="Tallinna busside nr 8 ja 8A järgmised reaalajas väljumised Oblika tee peatusest.">
+  <title>Bussiajad | Oblika tee - Reaalaja väljumised</title>
+  <meta name="description" content="Tallinna busside nr 8, 8A ja 48 järgmised reaalajas väljumised Oblika tee peatusest.">
 
   <!-- PWA & Mobile Meta Tags -->
   <link rel="manifest" href="manifest.json">
@@ -95,12 +95,6 @@
     .walk-switch-thumb {
       transition: transform 0.2s ease;
     }
-    input:checked ~ .walk-switch-track {
-      background-color: #f97316;
-    }
-    input:checked ~ .walk-switch-thumb {
-      transform: translateX(12px);
-    }
 
     /* Päise sihtkoha sujuv paremalt-vasakule skroll (marquee) */
     @keyframes marquee-calm {
@@ -162,9 +156,9 @@
             </div>
             <p id="route-subtitle" class="text-xs text-slate-400 font-medium tracking-wide flex items-center gap-1.5 mt-0.5 min-h-[1.25rem] whitespace-nowrap overflow-hidden">
               <svg class="w-3.5 h-3.5 text-slate-500 inline flex-shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-              <span id="route-dest-container" tabindex="0" class="min-w-0 flex-1 overflow-hidden relative inline-flex items-center focus:outline-none focus:ring-1 focus:ring-slate-500/50 rounded" title="Väike-Õismäe / Viru keskus">
+              <span id="route-dest-container" tabindex="0" class="min-w-0 flex-1 overflow-hidden relative inline-flex items-center focus:outline-none focus:ring-1 focus:ring-slate-500/50 rounded" title="Väike-Õismäe / Viru keskus / Pirita keskus">
                 <span id="route-dest-track" class="inline-flex items-center whitespace-nowrap">
-                  <span id="route-destination" class="text-slate-300 font-semibold whitespace-nowrap inline-block">Väike-Õismäe / Viru keskus</span>
+                  <span id="route-destination" class="text-slate-300 font-semibold whitespace-nowrap inline-block">Väike-Õismäe / Viru keskus / Pirita keskus</span>
                 </span>
               </span>
             </p>
@@ -172,8 +166,7 @@
         </div>
 
         <!-- Suuna valik (Kohandatud tumeda stiiliga Drop-down menüü) -->
-        <div class="flex-shrink-0 flex items-center gap-1.5 pl-1 relative" id="direction-dropdown-container">
-          <span class="text-xs font-semibold text-slate-400 sr-only sm:not-sr-only sm:inline" id="direction-label-text">Suund:</span>
+        <div class="flex-shrink-0 flex items-center pl-1 relative" id="direction-dropdown-container">
           <div class="relative">
             <button
               id="direction-btn"
@@ -181,10 +174,11 @@
               onclick="toggleDirectionDropdown()"
               aria-haspopup="listbox"
               aria-expanded="false"
-              aria-labelledby="direction-label-text direction-btn-text"
+              aria-controls="direction-menu"
+              aria-label="Vali suund"
               class="inline-flex items-center justify-between gap-1.5 sm:gap-2 bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700/80 hover:border-slate-600 rounded-xl px-2.5 sm:px-3 py-1.5 text-xs sm:text-[13px] font-semibold transition shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/50 cursor-pointer select-none"
             >
-              <span id="direction-btn-text">Pirita</span>
+              <span id="direction-btn-text">&gt; Pirita</span>
               <svg id="direction-chevron" class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
@@ -205,7 +199,7 @@
                 onclick="selectDirection('pirita')"
                 class="w-full text-left px-3 py-2 rounded-xl flex items-center justify-between transition-colors bg-emerald-500/15 text-emerald-400 font-bold border border-emerald-500/20"
               >
-                <span>Pirita</span>
+                <span>&gt; Pirita</span>
                 <svg id="dir-check-pirita" class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                 </svg>
@@ -218,7 +212,7 @@
                 onclick="selectDirection('aigrumae')"
                 class="w-full text-left px-3 py-2 rounded-xl flex items-center justify-between transition-colors text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent"
               >
-                <span>Äigrumäe</span>
+                <span>&gt; Äigrumäe</span>
                 <svg id="dir-check-aigrumae" class="hidden w-3.5 h-3.5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                 </svg>
@@ -229,22 +223,26 @@
       </header>
 
       <!-- Liinifiltri vahelehed -->
-      <nav class="mt-4 grid grid-cols-3 gap-1.5 p-1 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-inner text-xs sm:text-[13px] font-semibold" role="tablist" aria-label="Liinifilter">
-        <button id="filter-all" onclick="setLineFilter('all')" role="tab" aria-selected="true" aria-controls="departures-container" class="py-2 px-2.5 sm:px-3 rounded-xl transition-all duration-200 text-white bg-slate-800 border border-slate-600/80 shadow-md font-bold flex items-center justify-center gap-1.5">
-          <span>Liinid 8 & 8A</span>
+      <nav class="mt-4 grid grid-cols-4 gap-1 sm:gap-1.5 p-1 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-inner text-[11px] sm:text-[13px] font-semibold" role="tablist" aria-label="Liinifilter">
+        <button id="filter-all" onclick="setLineFilter('all')" role="tab" aria-selected="true" aria-controls="departures-container" class="py-2 px-1.5 sm:px-2.5 rounded-xl transition-all duration-200 text-white bg-slate-800 border border-slate-600/80 shadow-md font-bold flex items-center justify-center gap-1 sm:gap-1.5 whitespace-nowrap">
+          <span>Kõik liinid</span>
         </button>
-        <button id="filter-8" onclick="setLineFilter('8')" role="tab" aria-selected="false" aria-controls="departures-container" class="py-2 px-2.5 sm:px-3 rounded-xl transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-800/50 border border-transparent flex items-center justify-center gap-1.5">
-          <span class="w-2 h-2 rounded-full bg-[#00e0b3] shadow-sm shadow-[#00e0b3]/50" aria-hidden="true"></span>
+        <button id="filter-8" onclick="setLineFilter('8')" role="tab" aria-selected="false" aria-controls="departures-container" class="py-2 px-1.5 sm:px-2.5 rounded-xl transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-800/50 border border-transparent flex items-center justify-center gap-1 sm:gap-1.5 whitespace-nowrap">
+          <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#00e0b3] shadow-sm shadow-[#00e0b3]/50 flex-shrink-0" aria-hidden="true"></span>
           <span>Liin 8</span>
         </button>
-        <button id="filter-8a" onclick="setLineFilter('8A')" role="tab" aria-selected="false" aria-controls="departures-container" class="py-2 px-2.5 sm:px-3 rounded-xl transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-800/50 border border-transparent flex items-center justify-center gap-1.5">
-          <span class="w-2 h-2 rounded-full bg-sky-500 shadow-sm shadow-sky-500/50" aria-hidden="true"></span>
+        <button id="filter-8a" onclick="setLineFilter('8A')" role="tab" aria-selected="false" aria-controls="departures-container" class="py-2 px-1.5 sm:px-2.5 rounded-xl transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-800/50 border border-transparent flex items-center justify-center gap-1 sm:gap-1.5 whitespace-nowrap">
+          <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#00e0b3] shadow-sm shadow-[#00e0b3]/50 flex-shrink-0" aria-hidden="true"></span>
           <span>Liin 8A</span>
+        </button>
+        <button id="filter-48" onclick="setLineFilter('48')" role="tab" aria-selected="false" aria-controls="departures-container" class="py-2 px-1.5 sm:px-2.5 rounded-xl transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-800/50 border border-transparent flex items-center justify-center gap-1 sm:gap-1.5 whitespace-nowrap">
+          <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#00e0b3] shadow-sm shadow-[#00e0b3]/50 flex-shrink-0" aria-hidden="true"></span>
+          <span>Liin 48</span>
         </button>
       </nav>
 
       <!-- Väljumiste sektsioon -->
-      <section id="departures-container" class="mt-5 space-y-3.5">
+      <section id="departures-container" role="tabpanel" class="mt-5 space-y-3.5">
         <div id="cards-wrapper" class="space-y-3.5">
           <!-- Esialgne laadimisolek (skelett) -->
           <div class="animate-pulse space-y-3.5">
@@ -306,9 +304,11 @@
             <svg class="w-3.5 h-3.5 text-slate-400" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            <a id="schedule-link-8" href="https://transport.tallinn.ee/#bus/8/b-a/19001-1" target="_blank" rel="noopener noreferrer" aria-label="Liini 8 ametlik sõiduplaan" class="hover:text-emerald-400 font-semibold underline underline-offset-4 decoration-slate-700 hover:decoration-emerald-400 transition">8</a>
+            <a id="schedule-link-8" href="https://transport.tallinn.ee/#bus/8/b-a/19001-1" target="_blank" rel="noopener noreferrer" aria-label="Liini 8 ametlik sõiduplaan" class="hover:text-[#00e0b3] font-semibold underline underline-offset-4 decoration-slate-700 hover:decoration-[#00e0b3] transition">8</a>
             <span class="text-slate-600" aria-hidden="true">·</span>
-            <a id="schedule-link-8a" href="https://transport.tallinn.ee/#bus/8a/b-a/19001-1" target="_blank" rel="noopener noreferrer" aria-label="Liini 8A ametlik sõiduplaan" class="hover:text-sky-400 font-semibold underline underline-offset-4 decoration-slate-700 hover:decoration-sky-400 transition">8A</a>
+            <a id="schedule-link-8a" href="https://transport.tallinn.ee/#bus/8a/b-a/19001-1" target="_blank" rel="noopener noreferrer" aria-label="Liini 8A ametlik sõiduplaan" class="hover:text-[#00e0b3] font-semibold underline underline-offset-4 decoration-slate-700 hover:decoration-[#00e0b3] transition">8A</a>
+            <span class="text-slate-600" aria-hidden="true">·</span>
+            <a id="schedule-link-48" href="https://transport.tallinn.ee/#bus/48/b-a/19001-1" target="_blank" rel="noopener noreferrer" aria-label="Liini 48 ametlik sõiduplaan" class="hover:text-[#00e0b3] font-semibold underline underline-offset-4 decoration-slate-700 hover:decoration-[#00e0b3] transition">48</a>
           </div>
         </div>
       </footer>
@@ -319,68 +319,66 @@
 
   <!-- Staatiline brauseri JavaScript (otsepäring transport.tallinn.ee SIRI andmevoost) -->
   <script>
-    const ALLOWED_BUSES = ['8', '8A'];
+    const ALLOWED_BUSES = ['8', '8A', '48'];
     const UPDATE_INTERVAL = 15; // sekundit
 
     const DIRECTIONS = {
       pirita: {
-        name: 'Pirita',
+        name: '> Pirita',
         stopId: '1579', // Oblika tee suunaga Pirita / linn (kood: 19001-1)
         stopCode: '19001-1',
-        origin: {
-          all: 'Äigrumäe',
-          '8': 'Äigrumäe',
-          '8A': 'Äigrumäe'
-        },
         destination: {
-          all: 'Väike-Õismäe / Viru keskus',
+          all: 'Väike-Õismäe / Viru keskus / Pirita keskus',
           '8': 'Väike-Õismäe',
-          '8A': 'Viru keskus'
+          '8A': 'Viru keskus',
+          '48': 'Pirita keskus'
         },
         busDefaults: {
           '8': { destination: 'Väike-Õismäe' },
-          '8A': { destination: 'Viru keskus' }
+          '8A': { destination: 'Viru keskus' },
+          '48': { destination: 'Pirita keskus' }
         },
         busMaps: {
           '8': 'https://transport.tallinn.ee/#bus/8/b-a/19001-1/map',
-          '8A': 'https://transport.tallinn.ee/#bus/8a/b-a/19001-1/map'
+          '8A': 'https://transport.tallinn.ee/#bus/8a/b-a/19001-1/map',
+          '48': 'https://transport.tallinn.ee/#bus/48/b-a/19001-1/map'
         },
         busSchedules: {
           '8': 'https://transport.tallinn.ee/#bus/8/b-a/19001-1',
-          '8A': 'https://transport.tallinn.ee/#bus/8a/b-a/19001-1'
+          '8A': 'https://transport.tallinn.ee/#bus/8a/b-a/19001-1',
+          '48': 'https://transport.tallinn.ee/#bus/48/b-a/19001-1'
         }
       },
       aigrumae: {
-        name: 'Äigrumäe',
+        name: '> Äigrumäe',
         stopId: '1580', // Oblika tee suunaga Äigrumäe (kood: 19002-1)
         stopCode: '19002-1',
-        origin: {
-          all: 'Väike-Õismäe / Viru keskus',
-          '8': 'Väike-Õismäe',
-          '8A': 'Viru keskus'
-        },
         destination: {
-          all: 'Äigrumäe',
+          all: 'Äigrumäe / Vesse',
           '8': 'Äigrumäe',
-          '8A': 'Äigrumäe'
+          '8A': 'Äigrumäe',
+          '48': 'Vesse'
         },
         busDefaults: {
           '8': { destination: 'Äigrumäe' },
-          '8A': { destination: 'Äigrumäe' }
+          '8A': { destination: 'Äigrumäe' },
+          '48': { destination: 'Vesse' }
         },
         busMaps: {
           '8': 'https://transport.tallinn.ee/#bus/8/a-b/19002-1/map',
-          '8A': 'https://transport.tallinn.ee/#bus/8a/a-b/19002-1/map'
+          '8A': 'https://transport.tallinn.ee/#bus/8a/a-b/19002-1/map',
+          '48': 'https://transport.tallinn.ee/#bus/48/a-b/19002-1/map'
         },
         busSchedules: {
           '8': 'https://transport.tallinn.ee/#bus/8/a-b/19002-1',
-          '8A': 'https://transport.tallinn.ee/#bus/8a/a-b/19002-1'
+          '8A': 'https://transport.tallinn.ee/#bus/8a/a-b/19002-1',
+          '48': 'https://transport.tallinn.ee/#bus/48/a-b/19002-1'
         }
       }
     };
 
     let activeDirection = 'pirita'; // 'pirita' või 'aigrumae'
-    let activeFilter = 'all'; // 'all', '8', '8A'
+    let activeFilter = 'all'; // 'all', '8', '8A', '48'
     let activeFetchController = null;
     let secondsUntilRefresh = UPDATE_INTERVAL;
     let refreshTimer = null;
@@ -403,10 +401,7 @@
     }
 
     function getLineBadge(line) {
-      if (line === '8A') {
-        return `<span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-lg bg-sky-500 text-slate-950 font-black text-sm tracking-tight shadow-sm">8A</span>`;
-      }
-      return `<span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-lg bg-[#00e0b3] text-slate-950 font-black text-sm tracking-tight shadow-sm">8</span>`;
+      return `<span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-lg bg-[#00e0b3] text-slate-950 font-black text-sm tracking-tight shadow-sm">${escapeHtml(line)}</span>`;
     }
 
     function updateRouteHeader() {
@@ -457,8 +452,10 @@
       const dirConfig = DIRECTIONS[activeDirection] || DIRECTIONS.pirita;
       const link8 = document.getElementById('schedule-link-8');
       const link8A = document.getElementById('schedule-link-8a');
+      const link48 = document.getElementById('schedule-link-48');
       if (link8) link8.href = dirConfig.busSchedules['8'];
       if (link8A) link8A.href = dirConfig.busSchedules['8A'];
+      if (link48) link48.href = dirConfig.busSchedules['48'];
     }
 
     function setDirection(dir, updateHistory = true) {
@@ -551,6 +548,7 @@
       }
 
       lastFetchedDepartures = [];
+      lastFetchTimestamp = 0;
       fetchDepartures();
       resetRefreshCycle();
       startCountdown();
@@ -607,10 +605,12 @@
       const btnAll = document.getElementById('filter-all');
       const btn8 = document.getElementById('filter-8');
       const btn8A = document.getElementById('filter-8a');
+      const btn48 = document.getElementById('filter-48');
 
       if (btnAll) btnAll.setAttribute('aria-selected', filter === 'all' ? 'true' : 'false');
       if (btn8) btn8.setAttribute('aria-selected', filter === '8' ? 'true' : 'false');
       if (btn8A) btn8A.setAttribute('aria-selected', filter === '8A' ? 'true' : 'false');
+      if (btn48) btn48.setAttribute('aria-selected', filter === '48' ? 'true' : 'false');
 
       if (updateHistory) {
         const url = new URL(window.location.href);
@@ -624,24 +624,26 @@
 
       const baseInactive = ['text-slate-300', 'hover:text-white', 'hover:bg-slate-800/50', 'border-transparent'];
       const activeAllClasses = ['text-white', 'bg-slate-800', 'border-slate-600/80', 'shadow-md', 'font-bold'];
-      const active8Classes = ['text-[#00e0b3]', 'bg-[#00e0b3]/15', 'border-[#00e0b3]/50', 'shadow-md', 'shadow-[#00e0b3]/10', 'font-bold'];
-      const active8AClasses = ['text-sky-300', 'bg-sky-500/15', 'border-sky-500/50', 'shadow-md', 'shadow-sky-500/10', 'font-bold'];
+      const activeLineClasses = ['text-[#00e0b3]', 'bg-[#00e0b3]/15', 'border-[#00e0b3]/50', 'shadow-md', 'shadow-[#00e0b3]/10', 'font-bold'];
 
-      const allDynamicClasses = [...baseInactive, ...activeAllClasses, ...active8Classes, ...active8AClasses];
+      const allDynamicClasses = [...baseInactive, ...activeAllClasses, ...activeLineClasses];
 
-      [btnAll, btn8, btn8A].forEach(btn => {
+      [btnAll, btn8, btn8A, btn48].forEach(btn => {
         if (!btn) return;
         btn.classList.remove(...allDynamicClasses);
         btn.classList.add(...baseInactive);
       });
 
-      if (filter === '8') {
+      if (filter === '8' && btn8) {
         btn8.classList.remove(...baseInactive);
-        btn8.classList.add(...active8Classes);
-      } else if (filter === '8A') {
+        btn8.classList.add(...activeLineClasses);
+      } else if (filter === '8A' && btn8A) {
         btn8A.classList.remove(...baseInactive);
-        btn8A.classList.add(...active8AClasses);
-      } else {
+        btn8A.classList.add(...activeLineClasses);
+      } else if (filter === '48' && btn48) {
+        btn48.classList.remove(...baseInactive);
+        btn48.classList.add(...activeLineClasses);
+      } else if (btnAll) {
         btnAll.classList.remove(...baseInactive);
         btnAll.classList.add(...activeAllClasses);
       }
@@ -704,8 +706,8 @@
         
         const text = await response.text();
 
-        // Kui suunda vahetati aktiivse päringu ajal, ignoreeri aegunud vastust
-        if (currentDirection !== activeDirection) {
+        // Kui suunda vahetati või käivitati uus päring aktiivse päringu ajal, ignoreeri aegunud vastust
+        if (activeFetchController !== controller || currentDirection !== activeDirection) {
           return;
         }
 
@@ -780,8 +782,8 @@
 
       } catch (err) {
         clearTimeout(timeoutId);
-        // Kui päring tühistati suunavahetuse tõttu, ignoreeri ja ära kuva veateadet
-        if (err.name === 'AbortError' && currentDirection !== activeDirection) {
+        // Kui päring tühistati suunavahetuse või uue päringu tõttu, ignoreeri ja ära kuva veateadet
+        if (activeFetchController !== controller || currentDirection !== activeDirection) {
           return;
         }
         console.error('Viga andmete pärimisel:', err);
@@ -792,10 +794,10 @@
       } finally {
         if (activeFetchController === controller) {
           activeFetchController = null;
+          isFetching = false;
+          if (refreshIcon) refreshIcon.classList.remove('animate-spin');
+          secondsUntilRefresh = UPDATE_INTERVAL;
         }
-        isFetching = false;
-        if (refreshIcon) refreshIcon.classList.remove('animate-spin');
-        secondsUntilRefresh = UPDATE_INTERVAL;
       }
     }
 
@@ -826,6 +828,9 @@
         } else if (activeFilter === '8') {
           emptyMessage.textContent = 'Liinil 8 hetkel väljumisi ei leitud.';
           emptySubmessage.textContent = 'Bussiliin võib olla öisel puhkeajal või andmed uuenevad.';
+        } else if (activeFilter === '48') {
+          emptyMessage.textContent = 'Liinil 48 hetkel väljumisi ei leitud.';
+          emptySubmessage.textContent = 'Bussiliin võib olla puhkeajal või andmed uuenevad.';
         } else {
           emptyMessage.textContent = 'Praegu väljumisi ei leitud.';
           emptySubmessage.textContent = 'Bussiliinid võivad olla puhkeajal või andmed uuenevad.';
@@ -1154,11 +1159,11 @@
         }
       }
 
-      // Liinifilter: ?filter=8 või ?filter=8A
+      // Liinifilter: ?filter=8, ?filter=8A või ?filter=48
       const filterParam = urlParams.get('filter');
       if (filterParam) {
         const normalized = filterParam.toUpperCase();
-        if (normalized === '8' || normalized === '8A') {
+        if (ALLOWED_BUSES.includes(normalized)) {
           activeFilter = normalized;
         }
       }

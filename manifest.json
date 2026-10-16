@@ -1,7 +1,7 @@
 {
-  "name": "Bussid 8 & 8A | Oblika tee",
+  "name": "Bussiajad | Oblika tee",
   "short_name": "Bussiajad",
-  "description": "Tallinna busside nr 8 ja 8A reaalajas väljumisajad Oblika tee peatusest.",
+  "description": "Tallinna busside nr 8, 8A ja 48 reaalajas väljumisajad Oblika tee peatusest.",
   "id": "./",
   "start_url": "./",
   "scope": "./",
@@ -39,24 +39,31 @@
   ],
   "shortcuts": [
     {
-      "name": "Kõik väljumised (8 & 8A)",
-      "short_name": "Kõik",
+      "name": "Kõik liinid (8, 8A & 48)",
+      "short_name": "Kõik liinid",
       "description": "Vaata kõiki väljumisi korraga",
       "url": "./",
       "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
     },
     {
-      "name": "Buss 8 (Väike-Õismäe)",
+      "name": "Buss 8 (Väike-Õismäe / Äigrumäe)",
       "short_name": "Buss 8",
       "description": "Ainult liini 8 väljumised",
       "url": "./?filter=8",
       "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
     },
     {
-      "name": "Buss 8A (Viru keskus)",
+      "name": "Buss 8A (Viru keskus / Äigrumäe)",
       "short_name": "Buss 8A",
       "description": "Ainult liini 8A väljumised",
       "url": "./?filter=8A",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Buss 48 (Pirita keskus / Vesse)",
+      "short_name": "Buss 48",
+      "description": "Ainult liini 48 väljumised",
+      "url": "./?filter=48",
       "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
     }
   ]
