@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bussiajad-v16';
+const CACHE_NAME = 'bussiajad-v21';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -55,7 +55,7 @@ self.addEventListener('fetch', (event) => {
       fetch(event.request).then((networkResponse) => {
         if (networkResponse && networkResponse.status === 200) {
           const responseClone = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put('./index.html', responseClone));
+          caches.open(CACHE_NAME).then((cache) => cache.put('./index.html', responseClone)).catch(() => {});
         }
         return networkResponse;
       }).catch(async () => {
@@ -94,7 +94,7 @@ self.addEventListener('fetch', (event) => {
           const responseToCache = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => {
             cache.put(event.request, responseToCache);
-          });
+          }).catch(() => {});
         }
         return networkResponse;
       }).catch(() => cachedResponse || new Response('', { status: 504, statusText: 'Offline' }));

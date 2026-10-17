@@ -221,7 +221,7 @@
               aria-expanded="false"
               aria-controls="direction-menu"
               aria-label="Vali suund"
-              class="m3-state-layer w-[96px] sm:w-[110px] inline-flex items-center justify-between gap-1.5 bg-md-surface-high hover:bg-md-surface-highest text-md-on-surface border border-md-outline-variant rounded-full px-3.5 py-2 text-xs sm:text-[13px] font-medium focus:outline-none focus:ring-2 focus:ring-[#00e0b3] cursor-pointer select-none whitespace-nowrap"
+              class="m3-state-layer w-[96px] sm:w-[110px] inline-flex items-center justify-between gap-1.5 bg-md-surface-high hover:bg-md-surface-highest text-md-on-surface border border-[#00e0b3] rounded-full px-3.5 py-2 text-xs sm:text-[13px] font-medium focus:outline-none focus:ring-0 focus-visible:ring-2 focus-visible:ring-[#00e0b3] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0e1513] cursor-pointer select-none whitespace-nowrap"
             >
               <span id="direction-btn-text">Pirita</span>
               <svg id="direction-chevron" class="w-4 h-4 text-md-on-surface-variant transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -268,20 +268,17 @@
       </header>
 
       <!-- M3 Segmented Button / Navigation Pill Bar (Liinifilter) -->
-      <nav class="mt-4 grid grid-cols-4 gap-1 sm:gap-1.5 p-1 bg-md-surface-lowest rounded-full border border-md-outline-variant/60 text-[11px] sm:text-[13px] font-medium" role="tablist" aria-label="Liinifilter">
-        <button id="filter-all" onclick="setLineFilter('all')" role="tab" aria-selected="true" aria-controls="departures-container" class="m3-state-layer py-2 px-1.5 sm:px-2.5 rounded-full text-[#72f8ca] bg-[#00513f] font-medium flex items-center justify-center gap-1 sm:gap-1.5 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00e0b3]">
+      <nav class="mt-4 grid grid-cols-4 gap-1 sm:gap-1.5 p-1 bg-md-surface-lowest rounded-full border border-md-outline-variant/60 text-xs sm:text-sm font-medium" role="tablist" aria-label="Liinifilter">
+        <button id="filter-all" onclick="setLineFilter('all')" role="tab" aria-selected="true" aria-controls="departures-container" class="m3-state-layer py-2 px-1 sm:px-2.5 rounded-full text-[#72f8ca] bg-[#00513f] font-medium flex items-center justify-center whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00e0b3]">
           <span>Kõik liinid</span>
         </button>
-        <button id="filter-8" onclick="setLineFilter('8')" role="tab" aria-selected="false" aria-controls="departures-container" class="m3-state-layer py-2 px-1.5 sm:px-2.5 rounded-full text-md-on-surface-variant hover:text-md-on-surface hover:bg-md-surface-high/60 flex items-center justify-center gap-1 sm:gap-1.5 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00e0b3]">
-          <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#00e0b3] flex-shrink-0" aria-hidden="true"></span>
+        <button id="filter-8" onclick="setLineFilter('8')" role="tab" aria-selected="false" aria-controls="departures-container" class="m3-state-layer py-2 px-1 sm:px-2.5 rounded-full text-md-on-surface-variant hover:text-md-on-surface hover:bg-md-surface-high/60 flex items-center justify-center whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00e0b3]">
           <span>Liin 8</span>
         </button>
-        <button id="filter-8a" onclick="setLineFilter('8A')" role="tab" aria-selected="false" aria-controls="departures-container" class="m3-state-layer py-2 px-1.5 sm:px-2.5 rounded-full text-md-on-surface-variant hover:text-md-on-surface hover:bg-md-surface-high/60 flex items-center justify-center gap-1 sm:gap-1.5 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00e0b3]">
-          <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#00e0b3] flex-shrink-0" aria-hidden="true"></span>
+        <button id="filter-8a" onclick="setLineFilter('8A')" role="tab" aria-selected="false" aria-controls="departures-container" class="m3-state-layer py-2 px-1 sm:px-2.5 rounded-full text-md-on-surface-variant hover:text-md-on-surface hover:bg-md-surface-high/60 flex items-center justify-center whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00e0b3]">
           <span>Liin 8A</span>
         </button>
-        <button id="filter-48" onclick="setLineFilter('48')" role="tab" aria-selected="false" aria-controls="departures-container" class="m3-state-layer py-2 px-1.5 sm:px-2.5 rounded-full text-md-on-surface-variant hover:text-md-on-surface hover:bg-md-surface-high/60 flex items-center justify-center gap-1 sm:gap-1.5 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00e0b3]">
-          <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#00e0b3] flex-shrink-0" aria-hidden="true"></span>
+        <button id="filter-48" onclick="setLineFilter('48')" role="tab" aria-selected="false" aria-controls="departures-container" class="m3-state-layer py-2 px-1 sm:px-2.5 rounded-full text-md-on-surface-variant hover:text-md-on-surface hover:bg-md-surface-high/60 flex items-center justify-center whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00e0b3]">
           <span>Liin 48</span>
         </button>
       </nav>
@@ -855,20 +852,14 @@
         wrapper.innerHTML = '';
         emptyState.classList.remove('hidden');
         
-        if (activeFilter === '8A') {
-          emptyMessage.textContent = 'Liinil 8A hetkel väljumisi ei ole.';
-          emptySubmessage.textContent = activeDirection === 'aigrumae'
-            ? 'Buss 8A sõidab peamiselt tööpäeviti tipptundidel (Viru keskus → Äigrumäe).'
-            : 'Buss 8A sõidab peamiselt tööpäeviti tipptundidel (Äigrumäe → Viru keskus).';
-        } else if (activeFilter === '8') {
-          emptyMessage.textContent = 'Liinil 8 hetkel väljumisi ei leitud.';
-          emptySubmessage.textContent = 'Bussiliin võib olla öisel puhkeajal või andmed uuenevad.';
-        } else if (activeFilter === '48') {
-          emptyMessage.textContent = 'Liinil 48 hetkel väljumisi ei leitud.';
-          emptySubmessage.textContent = 'Bussiliin võib olla puhkeajal või andmed uuenevad.';
+        if (activeFilter !== 'all') {
+          emptyMessage.textContent = `Liinil ${activeFilter} hetkel väljumisi ei ole.`;
+          emptySubmessage.textContent = '';
+          emptySubmessage.classList.add('hidden');
         } else {
           emptyMessage.textContent = 'Praegu väljumisi ei leitud.';
           emptySubmessage.textContent = 'Bussiliinid võivad olla puhkeajal või andmed uuenevad.';
+          emptySubmessage.classList.remove('hidden');
         }
 
         return;
@@ -1014,6 +1005,7 @@
       emptyState.classList.remove('hidden');
       emptyMessage.textContent = errorMsg;
       emptySubmessage.textContent = 'Proovitakse automaatselt uuesti...';
+      emptySubmessage.classList.remove('hidden');
     }
 
     function resetRefreshCycle() {
